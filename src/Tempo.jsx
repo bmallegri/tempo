@@ -1635,7 +1635,7 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
       <div>
         <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
           {finished ? "All squares named." : (<span>Touch the square <b style={{ color: T.beige, fontSize: 22 }}>{target}</b></span>)}
-          <span style={{ opacity: 0.7 }}> &nbsp;·&nbsp; {finished ? ex.targets.length : ptr}/{ex.targets.length} named</span>
+          <span style={{ opacity: 0.7 }}> &nbsp;-&nbsp; {finished ? ex.targets.length : ptr}/{ex.targets.length} named</span>
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} />
         <FeedbackLine msg={msg} tone={tone} />
@@ -1656,7 +1656,7 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
     return (
       <div>
         <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
-          Trace the path, square by square &nbsp;·&nbsp; {found.size}/{ex.path.length}
+          Trace the path, square by square &nbsp;-&nbsp; {found.size}/{ex.path.length}
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} glow={new Set([sq(ex.from)])} />
         <FeedbackLine msg={msg} tone={tone} />
@@ -1677,7 +1677,7 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
     return (
       <div>
         <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
-          Mark every star &nbsp;·&nbsp; <b style={{ color: T.beige }}>{found.size}/{answers.size}</b> found
+          Mark every star &nbsp;-&nbsp; <b style={{ color: T.beige }}>{found.size}/{answers.size}</b> found
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} glow={new Set([sq(ex.from)])} />
         {ex.note && finished && (
@@ -1775,14 +1775,14 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
       </div>
       {isEx && !finished && (
         <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.good, marginBottom: 8 }}>
-          CALL {Math.min(stepIdx + 1, ex.steps.length)} OF {ex.steps.length} · THE BOARD WILL ANSWER
+          CALL {Math.min(stepIdx + 1, ex.steps.length)} OF {ex.steps.length} - THE BOARD WILL ANSWER
         </div>
       )}
       {duelInfo && (
         <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 12.5, color: T.onBody, marginBottom: 8 }}>
-          Move {Math.min(duelInfo.moves, ex.moveLimit)} of {ex.moveLimit} · {duelInfo.turn === "w" ? "your move" : "the reply is coming..."}
+          Move {Math.min(duelInfo.moves, ex.moveLimit)} of {ex.moveLimit} - {duelInfo.turn === "w" ? "your move" : "the reply is coming..."}
           {duelInfo.breathing > 0 && duelInfo.breathing <= 9 && (
-            <span style={{ color: duelInfo.breathing <= 2 ? T.rose : T.good }}> · his breathing squares: {duelInfo.breathing}</span>
+            <span style={{ color: duelInfo.breathing <= 2 ? T.rose : T.good }}> - his breathing squares: {duelInfo.breathing}</span>
           )}
         </div>
       )}
@@ -1818,7 +1818,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div>
           <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 16, fontWeight: 600, letterSpacing: 0.5 }}>{concept.name}</div>
-          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5 }}>Chapter {concept.ch} · {CHAPTERS[concept.ch - 1].title}</div>
+          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5 }}>Chapter {concept.ch}: {CHAPTERS[concept.ch - 1].title}</div>
         </div>
       </div>
       <Btn kind="ghost" onClick={onExit} style={{ padding: "6px 12px", fontSize: 12.5 }}>Leave</Btn>
@@ -1852,7 +1852,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
             fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: ACC[concept.ch],
             border: "1px solid " + ACC[concept.ch], borderRadius: 99, padding: "3px 12px"
           }}>
-            SETTING {ctxIdx + 1} OF {concept.contexts.length} · {ctx.setting.toUpperCase()} · {formOf(ctx.ex).toUpperCase()}
+            SETTING {ctxIdx + 1} OF {concept.contexts.length} - {ctx.setting.toUpperCase()} - {formOf(ctx.ex).toUpperCase()}
           </span>
         </div>
         <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 14, marginBottom: 4 }}>{ctx.flavor}</div>
@@ -1880,7 +1880,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
     return (
       <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
         {header}
-        <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, letterSpacing: 0.5, fontSize: 12.5, marginBottom: 12 }}>THE MEMORY HOOK · CARRY IT LIKE A COIN</div>
+        <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, letterSpacing: 0.5, fontSize: 12.5, marginBottom: 12 }}>THE MEMORY HOOK - CARRY IT LIKE A COIN</div>
         <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.onMute, marginBottom: 10 }}>
           Say it, see it, know when to reach for it. Three grips on the same idea.
         </div>
@@ -1891,7 +1891,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
         </div>
         {concept.depth && (
           <Card style={{ marginTop: 12, borderColor: T.beigeInk, background: T.paperWarm }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600, marginBottom: 6 }}>MARGIN NOTES · FOR WHEN YOU'RE READY</div>
+            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600, marginBottom: 6 }}>MARGIN NOTES - FOR WHEN YOU'RE READY</div>
             {concept.depth.map((d, i) => (
               <div key={i} style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 6 }}>{d}</div>
             ))}
@@ -1909,7 +1909,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
         {header}
         <Card style={{ borderColor: T.beigeInk }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES · THE REAL WORLD</div>
+            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES - THE REAL WORLD</div>
           </div>
           <div style={{ fontSize: 16, lineHeight: 1.6 }}>{concept.dues}</div>
           <div style={{ fontSize: 12.5, fontStyle: "italic", color: T.inkSoft, marginTop: 10, borderTop: "1px solid " + T.inkLine, paddingTop: 8 }}>
@@ -1938,7 +1938,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
       <CelebrateOnce />
       <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 19, marginTop: 14, letterSpacing: 0.5 }}>Inked into the notebook: {concept.name}</div>
       <div style={{ marginTop: 8 }}><RankCount n={rankIdx} size={20} /></div>
-      <div style={{ fontFamily: T.serif, color: T.beige, fontSize: 14, marginTop: 4 }}>{RANKS[rankIdx].name} rank{mistakes > 0 ? " · " + mistakes + " loose " + (mistakes === 1 ? "move" : "moves") : " · flawless"}</div>
+      <div style={{ fontFamily: T.serif, color: T.beige, fontSize: 14, marginTop: 4 }}>{RANKS[rankIdx].name} rank{mistakes > 0 ? " - " + mistakes + " loose " + (mistakes === 1 ? "move" : "moves") : " - flawless"}</div>
       <div style={{ marginTop: 16 }}>
         <FeedbackLine msg={doneLine} tone="good" />
       </div>
@@ -1988,7 +1988,7 @@ function BossRun({ boss, cell, onComplete, onExit }) {
         </div>
         <div style={{ textAlign: "center", marginBottom: 10 }}>
           <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: ACC[boss.ch], border: "1px solid " + ACC[boss.ch], borderRadius: 99, padding: "3px 12px" }}>
-            {ph.label.toUpperCase()} · {phaseIdx + 1}/{boss.phases.length}
+            {ph.label.toUpperCase()} - {phaseIdx + 1}/{boss.phases.length}
           </span>
         </div>
         <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 14, marginBottom: 12, maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>{ph.text}</div>
@@ -2227,11 +2227,11 @@ function Cabinet({ ledger, onPull }) {
           The cabinet is full of things worth knowing. Forty chips a story. Some of them are legendary.
         </div>
         <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 12.5, letterSpacing: 0.5, marginTop: 8 }}>
-          {chips} CHIPS · {count}/{CARDS.length} COLLECTED
+          {chips} CHIPS - {count}/{CARDS.length} COLLECTED
         </div>
         <div style={{ marginTop: 10 }}>
           <Btn kind="prime" onClick={pull} disabled={chips < 40}>
-            Ask for a story · 40 chips
+            Ask for a story - 40 chips
           </Btn>
         </div>
       </div>
@@ -2804,7 +2804,7 @@ function SalonRun({ onExit, onDone }) {
     return (
       <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center", padding: "36px 8px" }}>
         <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 17, letterSpacing: 0.5, margin: "14px 0 8px" }}>THE SALON CLOSES</div>
-        <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 14, letterSpacing: 0.5, marginBottom: 8 }}>INSIGHT: {score} / {maxScore} · MASTERSTROKES: {brill}</div>
+        <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 14, letterSpacing: 0.5, marginBottom: 8 }}>INSIGHT: {score} / {maxScore} - MASTERSTROKES: {brill}</div>
         <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>{line}</div>
         <div style={{ textAlign: "left", margin: "0 auto 18px", maxWidth: 420 }}>
           <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 6, textAlign: "center" }}>PRINCIPLES ARGUED TONIGHT</div>
@@ -2838,7 +2838,7 @@ function SalonRun({ onExit, onDone }) {
     <div style={{ maxWidth: 560, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Leave</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>THE MIDNIGHT SALON · {idx + 1} OF {rounds.length}</div>
+        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>THE MIDNIGHT SALON - {idx + 1} OF {rounds.length}</div>
         <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.onMute, width: 70, textAlign: "right" }}>{score}</div>
       </div>
       <div key={stage + idx} style={{ animation: "tp-fade .3s both", borderRadius: 16, padding: "14px 16px", marginBottom: 12,
@@ -2880,7 +2880,7 @@ function SalonRun({ onExit, onDone }) {
       {activeChosen != null && !inFollow && (
         <div style={{ marginTop: 12, borderRadius: 12, padding: "10px 14px", border: "1px solid " + T.beigeLine,
           background: T.beigeWash, animation: "tp-fade .4s both" }}>
-          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 3 }}>THE PRINCIPLE · {s.principle.toUpperCase()}</div>
+          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 3 }}>THE PRINCIPLE - {s.principle.toUpperCase()}</div>
           <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.paper }}>{s.deep}</div>
         </div>
       )}
@@ -3086,7 +3086,7 @@ function DrillRun({ ledger, cell, onExit, onReward }) {
     <div style={{ maxWidth: 560, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Leave</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>COLD DRILL · {idx + 1} OF {set.length}</div>
+        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>COLD DRILL - {idx + 1} OF {set.length}</div>
         <div style={{ width: 70 }} />
       </div>
       <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: ACC[c.ch], marginBottom: 4 }}>FROM: {c.name.toUpperCase()}</div>
@@ -3160,7 +3160,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
           <span style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, borderBottom: "1px solid " + T.onFaint, borderRight: "1px solid " + T.onFaint }} />
           <div style={{ fontFamily: T.mono, fontSize: 22, color: T.paper, letterSpacing: 0.5 }}>TEMPO</div>
         </div>
-        <div style={{ fontFamily: T.mono, fontSize: 12.5, color: T.onBody, letterSpacing: 0.5, marginTop: 3 }}>{title} · {units}/{TOTAL_UNITS} inked · {ledger.chips || 0} chips</div>
+        <div style={{ fontFamily: T.mono, fontSize: 12.5, color: T.onBody, letterSpacing: 0.5, marginTop: 3 }}>{title} - {units}/{TOTAL_UNITS} inked - {ledger.chips || 0} chips</div>
         <div style={{ maxWidth: 380, margin: "8px auto 0" }}><Meter pct={pct} /></div>
       </div>
       <div style={{ textAlign: "center", borderBottom: "1px solid " + T.beigeEdge, marginBottom: 16 }}>
@@ -3193,7 +3193,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
         const list = CONCEPTS.map((c, i) => ({ c, i })).filter((x) => x.c.ch === chp.n);
         return (
           <div key={chp.n} style={{ marginBottom: 22 }}>
-            <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 16, letterSpacing: 0.5 }}>Chapter {chp.n} · {chp.title}</div>
+            <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 16, letterSpacing: 0.5 }}>Chapter {chp.n}: {chp.title}</div>
             <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5, marginBottom: 10, fontStyle: "italic" }}>{chp.sub}</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {list.map(({ c, i }) => {
@@ -3280,7 +3280,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
                     {done ? "Sealed and sung." : ready ? b.tagline : "Locked, " + missing.length + " page" + (missing.length === 1 ? "" : "s") + " of its chapter still dark."}
                   </div>
                 </div>
-                {done ? <span style={{ color: T.beigeDeep, fontSize: 16, fontWeight: 600 }}>✓</span> :
+                {done ? <span style={{ fontFamily: T.mono, color: T.beigeDeep, fontSize: 11, letterSpacing: 0.5 }}>DONE</span> :
                   <Btn kind={ready ? "prime" : "ghost"} disabled={!ready} onClick={() => onBoss(b)} style={{ fontSize: 12.5, padding: "8px 16px" }}>
                     {ready ? "Face it" : <Lock size={14} />}
                   </Btn>}
@@ -3409,7 +3409,7 @@ export default function App() {
   const gainChips = (n, why) => {
     setLedger((old) => Object.assign({}, old, { chips: (old.chips || 0) + n }));
     SFX.chime();
-    toast("+" + n + " chips \u00b7 " + why);
+    toast("+" + n + " chips, " + why);
   };
   const pinHonor = (id, name, bonus) => {
     if (honorPinned.current.has(id)) return;
@@ -3417,7 +3417,7 @@ export default function App() {
     if (ledger.ach && ledger.ach[id]) return;
     setLedger((old) => old.ach && old.ach[id] ? old : Object.assign({}, old, { ach: Object.assign({}, old.ach, { [id]: true }), chips: (old.chips || 0) + bonus }));
     SFX.good();
-    toast(name + " \u00b7 +" + bonus + " chips");
+    toast(name + ", +" + bonus + " chips");
   };
   const doPull = () => {
     if ((ledger.chips || 0) < 40) return null;
@@ -3450,7 +3450,7 @@ export default function App() {
     });
     setScreen({ name: "hub" });
     const wasNew = ledger.done[id] === undefined;
-    toast("+" + (wasNew ? 30 + rankIdx * 5 : 10) + " chips \u00b7 " + (wasNew ? "page inked" : "reviewed"));
+    toast("+" + (wasNew ? 30 + rankIdx * 5 : 10) + " chips, " + (wasNew ? "page inked" : "reviewed"));
     if (wasNew && Object.keys(ledger.done).length === 0) pinHonor("first", "Honors board: First Page", 20);
     if (rankIdx === 2) pinHonor("flawless", "Honors board: Flawless", 25);
   };
