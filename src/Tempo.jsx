@@ -281,10 +281,37 @@ function pseudo(state, i) {
   }
   return out;
 }
-function san(state, m, captured) {
-  const p = state.board[m.from];
-  if (m.castle) return m.castle === "K" ? "O-O" : "O-O-O";
-  return GLYPH[p.t] + " " + nameOf(m.from) + (captured ? "\u00D7" : "-") + nameOf(m.to) + (m.promo ? "=\u265B" : "");
+/* algebraic notation, the way it is written on a real scoresheet:
+   Nf3, Bxc4, exd5, Nbd2, O-O, e8=Q, and + or # on the end */
+const LETTER = { p: "", n: "N", b: "B", r: "R", q: "Q", k: "K" };
+function san(state, m, captured, next) {
+  let out;
+  if (m.castle) {
+    out = m.castle === "K" ? "O-O" : "O-O-O";
+  } else {
+    const p = state.board[m.from];
+    const to = nameOf(m.to);
+    if (p.t === "p") {
+      out = (captured ? nameOf(m.from)[0] + "x" : "") + to + (m.promo ? "=" + m.promo.toUpperCase() : "");
+    } else {
+      /* another piece of the same kind could also land there: say which one moved */
+      const rivals = [];
+      for (let i = 0; i < 64; i++) {
+        const q = state.board[i];
+        if (!q || i === m.from || q.c !== p.c || q.t !== p.t) continue;
+        if (pseudo(state, i).some((x) => x.to === m.to && !inCheck(applyRaw(state, x), p.c))) rivals.push(i);
+      }
+      let tell = "";
+      if (rivals.length) {
+        if (!rivals.some((i) => colOf(i) === colOf(m.from))) tell = nameOf(m.from)[0];
+        else if (!rivals.some((i) => rowOf(i) === rowOf(m.from))) tell = nameOf(m.from)[1];
+        else tell = nameOf(m.from);
+      }
+      out = LETTER[p.t] + tell + (captured ? "x" : "") + to;
+    }
+  }
+  if (inCheck(next, next.turn)) out += legalMoves(next).length ? "+" : "#";
+  return out;
 }
 function applyRaw(state, m) {
   const b = state.board.slice();
@@ -319,7 +346,7 @@ function applyRaw(state, m) {
    goes through here; the search uses applyRaw and skips the writing. */
 function apply(state, m) {
   const next = applyRaw(state, m);
-  return Object.assign({}, next, { hist: state.hist.concat([san(state, m, next.captured)]) });
+  return Object.assign({}, next, { hist: state.hist.concat([san(state, m, next.captured, next)]) });
 }
 function legalMoves(state) {
   const out = [];
