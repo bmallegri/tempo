@@ -1221,7 +1221,7 @@ button:active { transform: scale(0.96); }
 
 function btnStyle(kind) {
   const base = {
-    fontFamily: T.mono, fontSize: 14, padding: "10px 22px", borderRadius: 8,
+    fontFamily: T.mono, fontSize: 15.5, padding: "10px 22px", borderRadius: 8,
     cursor: "pointer", letterSpacing: 0.5, display: "inline-flex",
     alignItems: "center", gap: 8, transition: "transform .12s, filter .12s"
   };
@@ -1295,7 +1295,7 @@ function Card(props) {
   );
 }
 function RankCount({ n, size }) {
-  return <span style={{ fontFamily: T.mono, fontSize: size || 15, color: T.beigeDeep }}>{(n + 1) + "/3"}</span>;
+  return <span style={{ fontFamily: T.mono, fontSize: size || 17, color: T.beigeDeep }}>{(n + 1) + "/3"}</span>;
 }
 function Meter({ pct, h }) {
   return (
@@ -1328,7 +1328,7 @@ function SpeakerLine({ line }) {
         fontStyle: isC ? "normal" : "italic",
         border: isC ? "1px solid " + T.beigeDeep : "none",
         borderRadius: 12, padding: isC ? "10px 14px" : "4px 2px",
-        fontFamily: T.serif, fontSize: 16, lineHeight: 1.6, maxWidth: 560
+        fontFamily: T.serif, fontSize: 18, lineHeight: 1.6, maxWidth: 625
       }}>
         {isC ? <TypeText text={line.t} /> : line.t}
       </div>
@@ -1341,7 +1341,7 @@ function Cutscene({ lines, onDone, doneLabel }) {
   useEffect(() => { if (endRef.current) endRef.current.scrollIntoView?.({ behavior: "smooth", block: "nearest" }); }, [shown]);
   const all = shown >= lines.length;
   return (
-    <div style={{ maxWidth: 640, margin: "0 auto", padding: "30px 16px 60px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: 715, margin: "0 auto", padding: "30px 16px 60px", display: "flex", flexDirection: "column", gap: 16 }}>
       {lines.slice(0, shown).map((l, i) => <SpeakerLine key={i} line={l} />)}
       <div ref={endRef} style={{ textAlign: "center", marginTop: 10 }}>
         {!all ? (
@@ -1527,11 +1527,11 @@ function formOf(ex) {
   return FORM_NAME[ex.type];
 }
 function FeedbackLine({ msg, tone }) {
-  if (!msg) return <div style={{ minHeight: 46 }} />;
+  if (!msg) return <div style={{ minHeight: 51 }} />;
   return (
-    <div key={msg} style={{ display: "flex", gap: 8, alignItems: "center", minHeight: 46, animation: "tp-fade .3s both" }}>
+    <div key={msg} style={{ display: "flex", gap: 8, alignItems: "center", minHeight: 51, animation: "tp-fade .3s both" }}>
       <div style={{
-        fontFamily: T.serif, fontSize: 14, fontStyle: "italic",
+        fontFamily: T.serif, fontSize: 15.5, fontStyle: "italic",
         color: tone === "bad" ? T.rose : (tone === "good" ? T.good : T.onHi)
       }}>{msg}</div>
     </div>
@@ -1634,8 +1634,8 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
     };
     return (
       <div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
-          {finished ? "All squares named." : (<span>Touch the square <b style={{ color: T.beige, fontSize: 22 }}>{target}</b></span>)}
+        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 18 }}>
+          {finished ? "All squares named." : (<span>Touch the square <b style={{ color: T.beige, fontSize: 24.5 }}>{target}</b></span>)}
           <span style={{ opacity: 0.7 }}> &nbsp;-&nbsp; {finished ? ex.targets.length : ptr}/{ex.targets.length} named</span>
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} />
@@ -1656,7 +1656,7 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
     };
     return (
       <div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
+        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 18 }}>
           Trace the path, square by square &nbsp;-&nbsp; {found.size}/{ex.path.length}
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} glow={new Set([sq(ex.from)])} />
@@ -1677,12 +1677,12 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
     };
     return (
       <div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
+        <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 18 }}>
           Mark every star &nbsp;-&nbsp; <b style={{ color: T.beige }}>{found.size}/{answers.size}</b> found
         </div>
         <Board board={base.board} cell={cell} onSquare={click} marks={found} wrong={wrong} glow={new Set([sq(ex.from)])} />
         {ex.note && finished && (
-          <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 8, maxWidth: 420, marginLeft: "auto", marginRight: "auto" }}>{ex.note}</div>
+          <div style={{ fontFamily: T.serif, fontSize: 15.5, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 8, maxWidth: 470, marginLeft: "auto", marginRight: "auto" }}>{ex.note}</div>
         )}
         <FeedbackLine msg={msg} tone={tone} />
         {finished && <div style={{ textAlign: "center" }}><Btn kind="prime" onClick={onDone}>Continue </Btn></div>}
@@ -1771,16 +1771,16 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
   })() : null;
   return (
     <div>
-      <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 16 }}>
+      <div style={{ textAlign: "center", fontFamily: T.serif, color: T.paper, marginBottom: 10, fontSize: 18 }}>
         {finished ? (isDuel ? "The duel is done." : "Locked in.") : ((isEx ? step.prompt : ex.prompt) || "Find the move.")}
       </div>
       {isEx && !finished && (
-        <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.good, marginBottom: 8 }}>
+        <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.good, marginBottom: 8 }}>
           CALL {Math.min(stepIdx + 1, ex.steps.length)} OF {ex.steps.length} - THE BOARD WILL ANSWER
         </div>
       )}
       {duelInfo && (
-        <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 12.5, color: T.onBody, marginBottom: 8 }}>
+        <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 14, color: T.onBody, marginBottom: 8 }}>
           Move {Math.min(duelInfo.moves, ex.moveLimit)} of {ex.moveLimit} - {duelInfo.turn === "w" ? "your move" : "the reply is coming..."}
           {duelInfo.breathing > 0 && duelInfo.breathing <= 9 && (
             <span style={{ color: duelInfo.breathing <= 2 ? T.rose : T.good }}> - his breathing squares: {duelInfo.breathing}</span>
@@ -1789,14 +1789,14 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
       )}
       <Board board={actSt.board} cell={cell} onSquare={click} wrong={wrong} selected={selected} dots={dots} last={actSt.last} checkSq={statusOf(actSt) !== "play" ? null : (inCheck(actSt, actSt.turn) ? kingIdx(actSt.board, actSt.turn) : null)} />
       {note && (
-        <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 6, animation: "tp-fade .3s both" }}>{note}</div>
+        <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 6, animation: "tp-fade .3s both" }}>{note}</div>
       )}
       {!finished && ex.moveHint && (
-        <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.onMute, textAlign: "center", marginTop: 6 }}>{ex.moveHint}</div>
+        <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.onMute, textAlign: "center", marginTop: 6 }}>{ex.moveHint}</div>
       )}
       {isDuel && !finished && (
         <div style={{ textAlign: "center", marginTop: 8 }}>
-          <Btn kind="ghost" onClick={() => { setLive(null); setNote(""); setSelected(null); }} style={{ fontSize: 12.5, padding: "6px 12px" }}>Restart the duel</Btn>
+          <Btn kind="ghost" onClick={() => { setLive(null); setNote(""); setSelected(null); }} style={{ fontSize: 14, padding: "6px 12px" }}>Restart the duel</Btn>
         </div>
       )}
       <FeedbackLine msg={msg} tone={tone} />
@@ -1818,20 +1818,20 @@ function Lesson({ concept, cell, onComplete, onExit }) {
     <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "space-between", marginBottom: 14 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div>
-          <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 16, fontWeight: 600, letterSpacing: 0.5 }}>{concept.name}</div>
-          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5 }}>Chapter {concept.ch}: {CHAPTERS[concept.ch - 1].title}</div>
+          <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 18, fontWeight: 600, letterSpacing: 0.5 }}>{concept.name}</div>
+          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14 }}>Chapter {concept.ch}: {CHAPTERS[concept.ch - 1].title}</div>
         </div>
       </div>
-      <Btn kind="ghost" onClick={onExit} style={{ padding: "6px 12px", fontSize: 12.5 }}>Leave</Btn>
+      <Btn kind="ghost" onClick={onExit} style={{ padding: "6px 12px", fontSize: 14 }}>Leave</Btn>
     </div>
   );
   if (phase === "intro") {
     return (
-      <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px" }}>
         {header}
         <Card>
           <div style={{ display: "flex", gap: 12 }}>
-            <div style={{ fontSize: 16, lineHeight: 1.6 }}><TypeText text={concept.intro} /></div>
+            <div style={{ fontSize: 18, lineHeight: 1.6 }}><TypeText text={concept.intro} /></div>
           </div>
         </Card>
         <div style={{ textAlign: "center", marginTop: 18 }}>
@@ -1846,23 +1846,23 @@ function Lesson({ concept, cell, onComplete, onExit }) {
     const glow = sub === "study" ? demoGlowFor(ctx.ex) : null;
     const demoBoard = mkState(ctx.ex.pieces, ctx.ex.opts).board;
     return (
-      <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px" }}>
         {header}
         <div style={{ textAlign: "center", marginBottom: 10 }}>
           <span style={{
-            fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: ACC[concept.ch],
+            fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: ACC[concept.ch],
             border: "1px solid " + ACC[concept.ch], borderRadius: 99, padding: "3px 12px"
           }}>
             SETTING {ctxIdx + 1} OF {concept.contexts.length} - {ctx.setting.toUpperCase()} - {formOf(ctx.ex).toUpperCase()}
           </span>
         </div>
-        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 14, marginBottom: 4 }}>{ctx.flavor}</div>
-        <div style={{ fontFamily: T.serif, color: T.good, textAlign: "center", fontSize: 14, marginBottom: 14 }}>{ctx.explain}</div>
+        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 15.5, marginBottom: 4 }}>{ctx.flavor}</div>
+        <div style={{ fontFamily: T.serif, color: T.good, textAlign: "center", fontSize: 15.5, marginBottom: 14 }}>{ctx.explain}</div>
         {sub === "study" ? (
           <div>
             <Board board={demoBoard} cell={cell} glow={glow} dim />
             <div style={{ textAlign: "center", marginTop: 14 }}>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.onBody, marginBottom: 10 }}>Study the marked pattern on the board until your eyes find it without hunting. Then play it.</div>
+              <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.onBody, marginBottom: 10 }}>Study the marked pattern on the board until your eyes find it without hunting. Then play it.</div>
               <Btn kind="prime" onClick={() => setSub("do")}>{ctx.ex.type === "duel" ? "Begin" : ctx.ex.type === "exchange" ? "Begin the exchange" : "My turn"}</Btn>
             </div>
           </div>
@@ -1879,22 +1879,22 @@ function Lesson({ concept, cell, onComplete, onExit }) {
   }
   if (phase === "hook") {
     return (
-      <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px" }}>
         {header}
-        <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, letterSpacing: 0.5, fontSize: 12.5, marginBottom: 12 }}>THE MEMORY HOOK - CARRY IT LIKE A COIN</div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.onMute, marginBottom: 10 }}>
+        <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, letterSpacing: 0.5, fontSize: 14, marginBottom: 12 }}>THE MEMORY HOOK - CARRY IT LIKE A COIN</div>
+        <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.onMute, marginBottom: 10 }}>
           Say it, see it, know when to reach for it. Three grips on the same idea.
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <Card style={{ background: T.paperCard, borderColor: T.blueDeep }}><div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blueDeep, fontWeight: 600, marginBottom: 4 }}>SAY IT PLAINLY</div>{concept.hook.plain}</Card>
-          <Card style={{ background: T.paperCard, borderColor: T.roseDeep }}><div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.roseDeep, fontWeight: 600, marginBottom: 4 }}>SEE IT</div><em>{concept.hook.image}</em></Card>
-          <Card style={{ background: T.paperCard, borderColor: T.blueInk }}><div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blueInk, fontWeight: 600, marginBottom: 4 }}>REACH FOR IT WHEN</div>{concept.hook.when}</Card>
+          <Card style={{ background: T.paperCard, borderColor: T.blueDeep }}><div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.blueDeep, fontWeight: 600, marginBottom: 4 }}>SAY IT PLAINLY</div>{concept.hook.plain}</Card>
+          <Card style={{ background: T.paperCard, borderColor: T.roseDeep }}><div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.roseDeep, fontWeight: 600, marginBottom: 4 }}>SEE IT</div><em>{concept.hook.image}</em></Card>
+          <Card style={{ background: T.paperCard, borderColor: T.blueInk }}><div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.blueInk, fontWeight: 600, marginBottom: 4 }}>REACH FOR IT WHEN</div>{concept.hook.when}</Card>
         </div>
         {concept.depth && (
           <Card style={{ marginTop: 12, borderColor: T.beigeInk, background: T.paperWarm }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600, marginBottom: 6 }}>MARGIN NOTES - FOR WHEN YOU'RE READY</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600, marginBottom: 6 }}>MARGIN NOTES - FOR WHEN YOU'RE READY</div>
             {concept.depth.map((d, i) => (
-              <div key={i} style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 6 }}>{d}</div>
+              <div key={i} style={{ fontSize: 15.5, lineHeight: 1.6, marginBottom: 6 }}>{d}</div>
             ))}
           </Card>
         )}
@@ -1906,14 +1906,14 @@ function Lesson({ concept, cell, onComplete, onExit }) {
   }
   if (phase === "dues") {
     return (
-      <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px" }}>
         {header}
         <Card style={{ borderColor: T.beigeInk }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES - THE REAL WORLD</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES - THE REAL WORLD</div>
           </div>
-          <div style={{ fontSize: 16, lineHeight: 1.6 }}>{concept.dues}</div>
-          <div style={{ fontSize: 12.5, fontStyle: "italic", color: T.inkSoft, marginTop: 10, borderTop: "1px solid " + T.inkLine, paddingTop: 8 }}>
+          <div style={{ fontSize: 18, lineHeight: 1.6 }}>{concept.dues}</div>
+          <div style={{ fontSize: 14, fontStyle: "italic", color: T.inkSoft, marginTop: 10, borderTop: "1px solid " + T.inkLine, paddingTop: 8 }}>
             The honest part: the page only becomes yours when your hands play it on a real board. The game cannot do that part for you.
           </div>
         </Card>
@@ -1926,7 +1926,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
   }
   /* done */
   return (
-    <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px", textAlign: "center" }}>
+    <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px", textAlign: "center" }}>
       {header}
       <div style={{ animation: "tp-fade .3s both", display: "inline-block", marginTop: 12 }}>
         <div style={{
@@ -1937,9 +1937,9 @@ function Lesson({ concept, cell, onComplete, onExit }) {
         </div>
       </div>
       <CelebrateOnce />
-      <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 19, marginTop: 14, letterSpacing: 0.5 }}>Inked into the notebook: {concept.name}</div>
-      <div style={{ marginTop: 8 }}><RankCount n={rankIdx} size={20} /></div>
-      <div style={{ fontFamily: T.serif, color: T.beige, fontSize: 14, marginTop: 4 }}>{RANKS[rankIdx].name} rank{mistakes > 0 ? " - " + mistakes + " loose " + (mistakes === 1 ? "move" : "moves") : " - flawless"}</div>
+      <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 21, marginTop: 14, letterSpacing: 0.5 }}>Inked into the notebook: {concept.name}</div>
+      <div style={{ marginTop: 8 }}><RankCount n={rankIdx} size={22} /></div>
+      <div style={{ fontFamily: T.serif, color: T.beige, fontSize: 15.5, marginTop: 4 }}>{RANKS[rankIdx].name} rank{mistakes > 0 ? " - " + mistakes + " loose " + (mistakes === 1 ? "move" : "moves") : " - flawless"}</div>
       <div style={{ marginTop: 16 }}>
         <FeedbackLine msg={doneLine} tone="good" />
       </div>
@@ -1957,20 +1957,20 @@ function BossRun({ boss, cell, onComplete, onExit }) {
   const [mistakes, setMistakes] = useState(0);
   if (stage === "intro") {
     return (
-      <div style={{ maxWidth: 640, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 715, margin: "0 auto", padding: "24px 14px" }}>
         <div style={{ textAlign: "center", marginBottom: 8 }}>
-          <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 19, letterSpacing: 0.5 }}>{boss.name}</div>
-          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14, fontStyle: "italic" }}>{boss.tagline}</div>
+          <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 21, letterSpacing: 0.5 }}>{boss.name}</div>
+          <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 15.5, fontStyle: "italic" }}>{boss.tagline}</div>
         </div>
         <div style={{ margin: "14px 0" }}>
           <Board board={boardFrom(boss.vision.pieces)} cell={Math.min(cell, 30)} dim />
-          <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.good, textAlign: "center", marginTop: 8, maxWidth: 460, marginLeft: "auto", marginRight: "auto", fontStyle: "italic" }}>
+          <div style={{ fontFamily: T.serif, fontSize: 14, color: T.good, textAlign: "center", marginTop: 8, maxWidth: 515, marginLeft: "auto", marginRight: "auto", fontStyle: "italic" }}>
             {boss.vision.caption}
           </div>
         </div>
         <Cutscene lines={boss.intro} onDone={() => setStage("phase")} doneLabel="Begin the trial" />
         <div style={{ textAlign: "center" }}>
-          <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5 }}>Retreat for now</Btn>
+          <Btn kind="ghost" onClick={onExit} style={{ fontSize: 14 }}>Retreat for now</Btn>
         </div>
       </div>
     );
@@ -1978,23 +1978,23 @@ function BossRun({ boss, cell, onComplete, onExit }) {
   if (stage === "phase") {
     const ph = boss.phases[phaseIdx];
     return (
-      <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ maxWidth: 690, margin: "0 auto", padding: "24px 14px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontFamily: T.serif, color: T.paper, fontSize: 14, fontWeight: 600 }}>{boss.name}</span>
+            <span style={{ fontFamily: T.serif, color: T.paper, fontSize: 15.5, fontWeight: 600 }}>{boss.name}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontFamily: T.mono, fontSize: 12.5, color: T.rose }}>{mistakes} {mistakes === 1 ? "slip" : "slips"}</span>
+            <span style={{ fontFamily: T.mono, fontSize: 14, color: T.rose }}>{mistakes} {mistakes === 1 ? "slip" : "slips"}</span>
           </div>
         </div>
         <div style={{ textAlign: "center", marginBottom: 10 }}>
-          <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: ACC[boss.ch], border: "1px solid " + ACC[boss.ch], borderRadius: 99, padding: "3px 12px" }}>
+          <span style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: ACC[boss.ch], border: "1px solid " + ACC[boss.ch], borderRadius: 99, padding: "3px 12px" }}>
             {ph.label.toUpperCase()} - {phaseIdx + 1}/{boss.phases.length}
           </span>
         </div>
-        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 14, marginBottom: 12, maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>{ph.text}</div>
+        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onHi, textAlign: "center", fontSize: 15.5, marginBottom: 12, maxWidth: 535, marginLeft: "auto", marginRight: "auto" }}>{ph.text}</div>
         {mistakes >= 6 && (
-          <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.rose, textAlign: "center", marginBottom: 8 }}>
+          <div style={{ fontFamily: T.serif, fontSize: 14, color: T.rose, textAlign: "center", marginBottom: 8 }}>
             The position frays. Positions can be rebuilt. Keep playing.
           </div>
         )}
@@ -2008,8 +2008,8 @@ function BossRun({ boss, cell, onComplete, onExit }) {
     );
   }
   return (
-    <div style={{ maxWidth: 640, margin: "0 auto", padding: "24px 14px" }}>
-      <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, fontSize: 19, letterSpacing: 0.5, marginBottom: 6, animation: "tp-fade .3s both" }}>
+    <div style={{ maxWidth: 715, margin: "0 auto", padding: "24px 14px" }}>
+      <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, fontSize: 21, letterSpacing: 0.5, marginBottom: 6, animation: "tp-fade .3s both" }}>
         Match complete
       </div>
       <Cutscene lines={boss.outro} onDone={() => onComplete(mistakes)} doneLabel="Back to the club" />
@@ -2094,50 +2094,50 @@ function Trial({ cell, onEnd, onExit }) {
   const result = !ended ? null : status === "checkmate" ? (st.turn === "b" ? "win" : "lose") : "draw";
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "20px 12px" }}>
+    <div style={{ maxWidth: 960, margin: "0 auto", padding: "20px 12px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, flexWrap: "wrap", gap: 8 }}>
-        <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 16, letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 18, letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 8 }}>
           The Long Game
         </div>
-        <Btn kind="ghost" onClick={onExit} style={{ padding: "6px 12px", fontSize: 12.5 }}>Withdraw</Btn>
+        <Btn kind="ghost" onClick={onExit} style={{ padding: "6px 12px", fontSize: 14 }}>Withdraw</Btn>
       </div>
       <div style={{ display: "flex", gap: 18, flexWrap: "wrap", justifyContent: "center" }}>
         <div>
-          <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onMute, textAlign: "center", marginBottom: 4, minHeight: 18 }}>
+          <div style={{ fontFamily: T.serif, fontSize: 14, color: T.onMute, textAlign: "center", marginBottom: 4, minHeight: 20 }}>
             {thinking ? "The Pale Automaton considers..." : playerChecked ? "" : ended ? "" : "Your move. You play White."}
           </div>
           {playerChecked && !ended && (
-            <div style={{ fontFamily: T.serif, color: T.rose, textAlign: "center", fontSize: 14, marginBottom: 4, animation: "tp-fade .3s both" }}>
+            <div style={{ fontFamily: T.serif, color: T.rose, textAlign: "center", fontSize: 15.5, marginBottom: 4, animation: "tp-fade .3s both" }}>
               THE ALARM SOUNDS, move, block, or capture.
             </div>
           )}
           <Board board={st.board} cell={cell} onSquare={clickSquare} selected={selected} dots={dots} last={st.last} glow={whisperGlow || undefined} checkSq={inCheck(st, st.turn) ? kingIdx(st.board, st.turn) : null} />
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontFamily: T.serif, fontSize: 16, color: T.onHi, maxWidth: cell * 8, marginLeft: "auto", marginRight: "auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontFamily: T.serif, fontSize: 18, color: T.onHi, maxWidth: cell * 8, marginLeft: "auto", marginRight: "auto" }}>
             <span>{st.caps.w.map((p, i) => <span key={i} style={{ color: T.ink, textShadow: "0 1px 1px " + T.sheenSoft }}>{GLYPH[p.t]}</span>)}</span>
-            <span style={{ fontFamily: T.mono, fontSize: 12.5, color: matDiff === 0 ? T.onMute : matDiff > 0 ? T.good : T.rose }}>
+            <span style={{ fontFamily: T.mono, fontSize: 14, color: matDiff === 0 ? T.onMute : matDiff > 0 ? T.good : T.rose }}>
               {matDiff === 0 ? "even" : (matDiff > 0 ? "+" + matDiff + " you" : matDiff + " you")}
             </span>
             <span>{st.caps.b.map((p, i) => <span key={i} style={{ color: T.paper, textShadow: "0 1px 2px " + T.pieceShade }}>{GLYPH[p.t]}</span>)}</span>
           </div>
         </div>
-        <div style={{ width: 270, display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ width: 300, display: "flex", flexDirection: "column", gap: 12 }}>
           <Card style={{ padding: 12 }}>
             <div style={{ display: "flex", gap: 10 }}>
-              <div style={{ fontSize: 14, lineHeight: 1.6, fontStyle: "italic" }}>{comment}</div>
+              <div style={{ fontSize: 15.5, lineHeight: 1.6, fontStyle: "italic" }}>{comment}</div>
             </div>
           </Card>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Btn onClick={whisper} disabled={whispers <= 0 || ended || thinking} style={{ fontSize: 12.5, padding: "8px 14px", borderColor: T.blueLine, color: T.blueLight }}>
+            <Btn onClick={whisper} disabled={whispers <= 0 || ended || thinking} style={{ fontSize: 14, padding: "8px 14px", borderColor: T.blueLine, color: T.blueLight }}>
               Whisper ({whispers})
             </Btn>
-            <Btn kind="ghost" onClick={() => { setSt(fresh()); setSelected(null); setWhispers(3); flags.current = { cap: false, check: false, castle: false, promo: false, queen: false }; setComment("Again, then. Use what you learned."); }} style={{ fontSize: 12.5, padding: "8px 14px" }}>
+            <Btn kind="ghost" onClick={() => { setSt(fresh()); setSelected(null); setWhispers(3); flags.current = { cap: false, check: false, castle: false, promo: false, queen: false }; setComment("Again, then. Use what you learned."); }} style={{ fontSize: 14, padding: "8px 14px" }}>
               Restart
             </Btn>
           </div>
-          <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onBody, lineHeight: 1.6 }}>
+          <div style={{ fontFamily: T.serif, fontSize: 14, color: T.onBody, lineHeight: 1.6 }}>
             {st.hist.length === 0 ? <em>No moves yet. The whole game is unwritten.</em> :
               movePairs(st.hist).slice(-6).map((r) => (
-                <div key={r.n} style={{ fontFamily: T.mono, fontSize: 12.5 }}>{r.n}. {r.w} {r.b}</div>
+                <div key={r.n} style={{ fontFamily: T.mono, fontSize: 14 }}>{r.n}. {r.w} {r.b}</div>
               ))}
           </div>
         </div>
@@ -2145,7 +2145,7 @@ function Trial({ cell, onEnd, onExit }) {
       {ended && (
         <div style={{ textAlign: "center", marginTop: 16, animation: "tp-fade .3s both" }}>
           {result === "win" && <CelebrateOnce />}
-          <div style={{ fontFamily: T.mono, fontSize: 19, color: result === "win" ? T.beige : result === "lose" ? T.rose : T.blueLight, letterSpacing: 0.5, marginBottom: 10 }}>
+          <div style={{ fontFamily: T.mono, fontSize: 21, color: result === "win" ? T.beige : result === "lose" ? T.rose : T.blueLight, letterSpacing: 0.5, marginBottom: 10 }}>
             {result === "win" ? "CHECKMATE, THE AUTOMATON FALLS" : result === "lose" ? "CHECKMATE, THE MACHINE TAKES THIS ONE" : "THE POSITION FREEZES, A DRAW"}
           </div>
           <Btn kind="prime" onClick={() => onEnd(result)}>Continue </Btn>
@@ -2162,7 +2162,7 @@ function Modal({ onClose, children }) {
       position: "fixed", inset: 0, background: T.overlay, zIndex: 50,
       display: "flex", alignItems: "center", justifyContent: "center", padding: 16
     }}>
-      <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560, width: "100%", maxHeight: "86vh", overflowY: "auto", animation: "tp-fade .25s both" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 625, width: "100%", maxHeight: "86vh", overflowY: "auto", animation: "tp-fade .25s both" }}>
         {children}
       </div>
     </div>
@@ -2224,10 +2224,10 @@ function Cabinet({ ledger, onPull }) {
   return (
     <div>
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 14 }}>
+        <div style={{ fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 15.5 }}>
           The cabinet is full of things worth knowing. Forty chips a story. Some of them are legendary.
         </div>
-        <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 12.5, letterSpacing: 0.5, marginTop: 8 }}>
+        <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 14, letterSpacing: 0.5, marginTop: 8 }}>
           {chips} CHIPS - {count}/{CARDS.length} COLLECTED
         </div>
         <div style={{ marginTop: 10 }}>
@@ -2243,23 +2243,23 @@ function Cabinet({ ledger, onPull }) {
             background: reveal.card.rarity === 3 ? T.paperBeige : reveal.card.rarity === 2 ? T.paperBlue : T.paperCard,
             position: "relative", overflow: "hidden"
           }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: RARITY[reveal.card.rarity].ink, fontWeight: 600 }}>{RARITY[reveal.card.rarity].name}</div>
-            <div style={{ fontFamily: T.serif, fontSize: 17, margin: "3px 0 1px" }}>{reveal.card.title}</div>
-            <div style={{ fontSize: 12.5, fontStyle: "italic", color: T.inkSoft, marginBottom: 8 }}>{reveal.card.sub}</div>
-            <div style={{ fontSize: 14, lineHeight: 1.6 }}>{reveal.card.text}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: RARITY[reveal.card.rarity].ink, fontWeight: 600 }}>{RARITY[reveal.card.rarity].name}</div>
+            <div style={{ fontFamily: T.serif, fontSize: 19, margin: "3px 0 1px" }}>{reveal.card.title}</div>
+            <div style={{ fontSize: 14, fontStyle: "italic", color: T.inkSoft, marginBottom: 8 }}>{reveal.card.sub}</div>
+            <div style={{ fontSize: 15.5, lineHeight: 1.6 }}>{reveal.card.text}</div>
           </Card>
         </div>
       )}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8 }}>
         {[3, 2, 1].map((r) => CARDS.filter((c) => c.rarity === r).map((c) => owned[c.id] ? (
           <div key={c.id} style={{ borderRadius: 12, padding: "8px 10px", border: "1px solid " + RARITY[r].col, background: r === 3 ? T.beigeWash : T.well, boxShadow: "none" }}>
-            <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: RARITY[r].col }}>{RARITY[r].name}</div>
-            <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 12.5 }}>{c.title}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 0.5, color: RARITY[r].col }}>{RARITY[r].name}</div>
+            <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 14 }}>{c.title}</div>
           </div>
         ) : (
           <div key={c.id} style={{ borderRadius: 12, padding: "8px 10px", border: "1px dashed " + T.onGhost, background: T.wellSoft }}>
-            <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.onSoft }}>{RARITY[r].name}</div>
-            <div style={{ fontFamily: T.serif, color: T.onFaint, fontSize: 12.5 }}>? ? ?</div>
+            <div style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 0.5, color: T.onSoft }}>{RARITY[r].name}</div>
+            <div style={{ fontFamily: T.serif, color: T.onFaint, fontSize: 14 }}>? ? ?</div>
           </div>
         )))}
       </div>
@@ -2322,23 +2322,23 @@ const PHRASEBOOK = [
 ];
 
 const Phrasebook = ({ onExit }) => (
-    <div style={{ maxWidth: 560, margin: "0 auto" }}>
+    <div style={{ maxWidth: 625, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Back</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige }}>THE PHRASEBOOK</div>
-        <div style={{ width: 64 }} />
+        <Btn kind="ghost" onClick={onExit} style={{ fontSize: 14, padding: "6px 12px" }}>Back</Btn>
+        <div style={{ fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, color: T.beige }}>THE PHRASEBOOK</div>
+        <div style={{ width: 71 }} />
       </div>
-      <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 14, marginBottom: 16 }}>
+      <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 15.5, marginBottom: 16 }}>
         Half of joining a club is the vocabulary. Learn these and nobody at any board, wooden or pixel, will read you as a tourist. One rule: patzer is said with affection or not at all.
       </div>
       {PHRASEBOOK.map((grp, gi) => (
         <div key={gi} style={{ marginBottom: 18 }}>
-          <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige, marginBottom: 8 }}>{grp.g.toUpperCase()}</div>
+          <div style={{ fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, color: T.beige, marginBottom: 8 }}>{grp.g.toUpperCase()}</div>
           {grp.items.map((it, i) => (
             <Card key={i} style={{ padding: "10px 14px", marginBottom: 7 }}>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.ink, marginBottom: 2 }}>{it.t}</div>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, marginBottom: 4 }}>{it.d}</div>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.inkSoft }}>"{it.u}"</div>
+              <div style={{ fontFamily: T.serif, fontSize: 14, color: T.ink, marginBottom: 2 }}>{it.t}</div>
+              <div style={{ fontFamily: T.serif, fontSize: 14, lineHeight: 1.6, marginBottom: 4 }}>{it.d}</div>
+              <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: T.inkSoft }}>"{it.u}"</div>
             </Card>
           ))}
         </div>
@@ -2417,24 +2417,24 @@ function Sandbox({ cell, onExit, onReward }) {
     });
     return s;
   }, [threats, st]);
-  const tool = { fontSize: 12.5, padding: "7px 11px" };
+  const tool = { fontSize: 14, padding: "7px 11px" };
   if (!preset) {
     return (
-      <div style={{ maxWidth: 560, margin: "0 auto" }}>
+      <div style={{ maxWidth: 625, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
           <Btn kind="ghost" onClick={onExit} style={tool}>Back</Btn>
-          <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige }}>THE BACK TABLE</div>
-          <div style={{ width: 64 }} />
+          <div style={{ fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, color: T.beige }}>THE BACK TABLE</div>
+          <div style={{ width: 71 }} />
         </div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 14, marginBottom: 16 }}>
+        <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 15.5, marginBottom: 16 }}>
           The far table is always free. Set it up however you like. Take moves back, use hints, break things. That is what it is for.
         </div>
         <div style={{ display: "grid", gap: 10 }}>
           {SANDBOX_PRESETS.map((p) => (
             <div key={p.id} className="tp-press" onClick={() => begin(p)}
               style={{ cursor: "pointer", borderRadius: 12, padding: "12px 16px", border: "1px solid " + T.beigeLine, background: T.well }}>
-              <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 14, letterSpacing: 0.5 }}>{p.name}</div>
-              <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5 }}>{p.desc}</div>
+              <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 15.5, letterSpacing: 0.5 }}>{p.name}</div>
+              <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14 }}>{p.desc}</div>
             </div>
           ))}
         </div>
@@ -2445,14 +2445,14 @@ function Sandbox({ cell, onExit, onReward }) {
     : status === "stalemate" ? "Stalemate. Half a point each."
     : status === "draw" ? "A draw." : null;
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto" }}>
+    <div style={{ maxWidth: 625, margin: "0 auto" }}>
       {status === "checkmate" && st.turn === "b" && <CelebrateOnce />}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
         <Btn kind="ghost" onClick={() => setPreset(null)} style={tool}>Setups</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige }}>THE BACK TABLE</div>
+        <div style={{ fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, color: T.beige }}>THE BACK TABLE</div>
         <Btn kind="ghost" onClick={onExit} style={tool}>Leave</Btn>
       </div>
-      <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 14, color: banner ? T.beige : T.onBody, marginBottom: 8, minHeight: 18 }}>
+      <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 15.5, color: banner ? T.beige : T.onBody, marginBottom: 8, minHeight: 20 }}>
         {banner || (st.turn === "w" ? (inCheck(st, "w") ? "Check on you. Answer it." : "Your move. Nobody's watching.") : "It's thinking...")}
       </div>
       <Board board={st.board} cell={cell} onSquare={click} selected={selected} dots={dots} last={st.last}
@@ -2466,12 +2466,12 @@ function Sandbox({ cell, onExit, onReward }) {
         <Btn kind="ghost" onClick={() => begin(preset)} style={tool}>Reset</Btn>
       </div>
       {threats && (
-        <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", fontSize: 12.5, color: T.onMute, marginTop: 6 }}>
+        <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", fontSize: 14, color: T.onMute, marginTop: 6 }}>
           Highlighted squares: your pieces the engine is attacking right now.
         </div>
       )}
       {st.hist.length > 0 && (
-        <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onMute, marginTop: 10, lineHeight: 1.6, textAlign: "center" }}>
+        <div style={{ fontFamily: T.serif, fontSize: 14, color: T.onMute, marginTop: 10, lineHeight: 1.6, textAlign: "center" }}>
           {movePairs(st.hist).map((r) => r.n + ". " + r.w + " " + r.b).join("   ")}
         </div>
       )}
@@ -2506,10 +2506,10 @@ function DrillRun({ ledger, cell, onExit, onReward }) {
         ? "A few slips, and that's exactly why we drill. What you just repaired sticks better than it did before."
         : "The dim ones showed themselves tonight. Good. Now you know which ones to review. Forgetting a little first is how remembering becomes permanent.";
     return (
-      <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center", padding: "40px 8px" }}>
-        <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 17, letterSpacing: 0.5, margin: "14px 0 8px" }}>THE DRILL IS DONE</div>
-        <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 16, lineHeight: 1.6, marginBottom: 8 }}>{line}</div>
-        <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5, fontStyle: "italic", marginBottom: 18 }}>
+      <div style={{ maxWidth: 625, margin: "0 auto", textAlign: "center", padding: "40px 8px" }}>
+        <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 19, letterSpacing: 0.5, margin: "14px 0 8px" }}>THE DRILL IS DONE</div>
+        <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 18, lineHeight: 1.6, marginBottom: 8 }}>{line}</div>
+        <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14, fontStyle: "italic", marginBottom: 18 }}>
           {mistakes === 0 ? "Five for five." : mistakes + (mistakes === 1 ? " slip" : " slips") + " across five exercises."} Mixed practice on old pages is worth double the same minutes on new ones.
         </div>
         <Btn kind="prime" onClick={onExit}>Return to the club</Btn>
@@ -2518,14 +2518,14 @@ function DrillRun({ ledger, cell, onExit, onReward }) {
   }
   const { c, ctx } = set[idx];
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto" }}>
+    <div style={{ maxWidth: 625, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Leave</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>COLD DRILL - {idx + 1} OF {set.length}</div>
-        <div style={{ width: 70 }} />
+        <Btn kind="ghost" onClick={onExit} style={{ fontSize: 14, padding: "6px 12px" }}>Leave</Btn>
+        <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige }}>COLD DRILL - {idx + 1} OF {set.length}</div>
+        <div style={{ width: 78 }} />
       </div>
-      <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: ACC[c.ch], marginBottom: 4 }}>FROM: {c.name.toUpperCase()}</div>
-      <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 12.5, color: T.onMute, fontStyle: "italic", marginBottom: 12 }}>{ctx.explain}</div>
+      <div style={{ textAlign: "center", fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, color: ACC[c.ch], marginBottom: 4 }}>FROM: {c.name.toUpperCase()}</div>
+      <div style={{ textAlign: "center", fontFamily: T.serif, fontSize: 14, color: T.onMute, fontStyle: "italic", marginBottom: 12 }}>{ctx.explain}</div>
       <ExercisePlayer key={idx} ex={ctx.ex} cell={cell}
         onMistake={() => setMistakes((m) => m + 1)}
         onDone={() => setIdx(idx + 1)} />
@@ -2578,7 +2578,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
   const trialReady = CONCEPTS.every((c) => ledger.done[c.id]) && BOSSES.every((b) => ledger.bosses[b.id]);
   const tabBtn = (id, label) => (
     <button onClick={() => setTab(id)} style={{
-      fontFamily: T.mono, fontSize: 14, letterSpacing: 0.5, padding: "8px 14px",
+      fontFamily: T.mono, fontSize: 15.5, letterSpacing: 0.5, padding: "8px 14px",
       background: tab === id ? T.blueEdge : "transparent",
       color: tab === id ? T.blueDeep : T.onBody,
       border: "none", borderBottom: tab === id ? "2px solid " + T.blueDeep : "2px solid transparent",
@@ -2586,17 +2586,17 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
     }}>{label}</button>
   );
   return (
-    <div style={{ maxWidth: 760, margin: "0 auto", padding: "20px 12px 60px" }}>
+    <div style={{ maxWidth: 850, margin: "0 auto", padding: "20px 12px 60px" }}>
       <div style={{ textAlign: "center", marginBottom: 12 }}>
         <div style={{ position: "relative", display: "inline-block", padding: "5px 13px" }}>
           <span style={{ position: "absolute", top: 0, left: 0, width: 7, height: 7, borderTop: "1px solid " + T.onFaint, borderLeft: "1px solid " + T.onFaint }} />
           <span style={{ position: "absolute", top: 0, right: 0, width: 7, height: 7, borderTop: "1px solid " + T.onFaint, borderRight: "1px solid " + T.onFaint }} />
           <span style={{ position: "absolute", bottom: 0, left: 0, width: 7, height: 7, borderBottom: "1px solid " + T.onFaint, borderLeft: "1px solid " + T.onFaint }} />
           <span style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, borderBottom: "1px solid " + T.onFaint, borderRight: "1px solid " + T.onFaint }} />
-          <div style={{ fontFamily: T.mono, fontSize: 22, color: T.paper, letterSpacing: 0.5 }}>TEMPO</div>
+          <div style={{ fontFamily: T.mono, fontSize: 24.5, color: T.paper, letterSpacing: 0.5 }}>TEMPO</div>
         </div>
-        <div style={{ fontFamily: T.mono, fontSize: 12.5, color: T.onBody, letterSpacing: 0.5, marginTop: 3 }}>{title} - {units}/{TOTAL_UNITS} inked - {ledger.chips || 0} chips</div>
-        <div style={{ maxWidth: 380, margin: "8px auto 0" }}><Meter pct={pct} /></div>
+        <div style={{ fontFamily: T.mono, fontSize: 14, color: T.onBody, letterSpacing: 0.5, marginTop: 3 }}>{title} - {units}/{TOTAL_UNITS} inked - {ledger.chips || 0} chips</div>
+        <div style={{ maxWidth: 425, margin: "8px auto 0" }}><Meter pct={pct} /></div>
       </div>
       <div style={{ textAlign: "center", borderBottom: "1px solid " + T.beigeEdge, marginBottom: 16 }}>
         {tabBtn("notebook", "Notebook")}{tabBtn("trials", "Club Nights")}{tabBtn("cabinet", "Cabinet")}{tabBtn("profile", "Profile")}
@@ -2608,8 +2608,8 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center" }}>
           <div>
-            <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 12.5, letterSpacing: 0.5 }}>THE COLD DRILL</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>Five shuffled exercises from pages you already own. Memory is a muscle. Surprise it.</div>
+            <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 14, letterSpacing: 0.5 }}>THE COLD DRILL</div>
+            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 14 }}>Five shuffled exercises from pages you already own. Memory is a muscle. Surprise it.</div>
           </div>
         </div>
       )}
@@ -2619,8 +2619,8 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center", gap: 12 }}>
           <div>
-            <div style={{ fontFamily: T.mono, color: T.beigeDeep, fontSize: 12.5, letterSpacing: 0.5 }}>THE PHRASEBOOK</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>How the regulars actually talk. Blitz, blunders, swindles, and how to say Nf3 out loud.</div>
+            <div style={{ fontFamily: T.mono, color: T.beigeDeep, fontSize: 14, letterSpacing: 0.5 }}>THE PHRASEBOOK</div>
+            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 14 }}>How the regulars actually talk. Blitz, blunders, swindles, and how to say Nf3 out loud.</div>
           </div>
         </div>
       )}
@@ -2628,8 +2628,8 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
         const list = CONCEPTS.map((c, i) => ({ c, i })).filter((x) => x.c.ch === chp.n);
         return (
           <div key={chp.n} style={{ marginBottom: 22 }}>
-            <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 16, letterSpacing: 0.5 }}>Chapter {chp.n}: {chp.title}</div>
-            <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5, marginBottom: 10, fontStyle: "italic" }}>{chp.sub}</div>
+            <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 18, letterSpacing: 0.5 }}>Chapter {chp.n}: {chp.title}</div>
+            <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14, marginBottom: 10, fontStyle: "italic" }}>{chp.sub}</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {list.map(({ c, i }) => {
                 const doneRank = ledger.done[c.id];
@@ -2637,36 +2637,36 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
                 if (doneRank !== undefined) {
                   return (
                     <div key={c.id} onClick={() => setCodex(c)} style={{
-                      width: 158, background: T.paperWarm, borderRadius: 12,
+                      boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.paperWarm, borderRadius: 12,
                       border: "1.5px solid " + T.blueDeep, padding: "12px 10px", cursor: "pointer",
                       textAlign: "center"
                     }}>
-                      <div style={{ fontFamily: T.serif, fontSize: 14, color: T.ink, fontWeight: 600, margin: "4px 0 3px" }}>{c.name}</div>
-                      <RankCount n={doneRank} size={13} />
-                      <div style={{ fontFamily: T.serif, fontSize: 11, color: T.inkSoft, marginTop: 3 }}>tap to open the codex</div>
+                      <div style={{ fontFamily: T.serif, fontSize: 15.5, color: T.ink, fontWeight: 600, margin: "4px 0 3px" }}>{c.name}</div>
+                      <RankCount n={doneRank} size={14.5} />
+                      <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.inkSoft, marginTop: 3 }}>tap to open the codex</div>
                     </div>
                   );
                 }
                 if (unlocked) {
                   return (
                     <div key={c.id} onClick={() => onLesson(c)} style={{
-                      width: 158, background: T.onGhost, borderRadius: 12,
+                      boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.onGhost, borderRadius: 12,
                       border: "1.5px solid " + ACC[c.ch], padding: "12px 10px", cursor: "pointer",
                       textAlign: "center"
                     }}>
-                      <div style={{ fontFamily: T.serif, fontSize: 14, color: T.paper, fontWeight: 600, margin: "4px 0 3px" }}>{c.name}</div>
-                      <div style={{ fontFamily: T.serif, fontSize: 12.5, color: ACC[c.ch] }}>Open this page</div>
+                      <div style={{ fontFamily: T.serif, fontSize: 15.5, color: T.paper, fontWeight: 600, margin: "4px 0 3px" }}>{c.name}</div>
+                      <div style={{ fontFamily: T.serif, fontSize: 14, color: ACC[c.ch] }}>Open this page</div>
                     </div>
                   );
                 }
                 return (
                   <div key={c.id} style={{
-                    width: 158, background: T.well, borderRadius: 12,
+                    boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.well, borderRadius: 12,
                     border: "1px solid " + T.onGhost, padding: "12px 10px", textAlign: "center", opacity: 0.85
                   }}>
-                    <Lock size={20} color={T.onSoft} />
-                    <div style={{ fontFamily: T.mono, fontSize: 14, color: T.onSoft, margin: "4px 0 3px", letterSpacing: 0.5 }}>? ? ?</div>
-                    <div style={{ fontFamily: T.serif, fontSize: 11, color: T.onMute, fontStyle: "italic", lineHeight: 1.4 }}>{c.lockedHint}</div>
+                    <Lock size={22} color={T.onSoft} />
+                    <div style={{ fontFamily: T.mono, fontSize: 15.5, color: T.onSoft, margin: "4px 0 3px", letterSpacing: 0.5 }}>? ? ?</div>
+                    <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onMute, fontStyle: "italic", lineHeight: 1.4 }}>{c.lockedHint}</div>
                   </div>
                 );
               })}
@@ -2681,8 +2681,8 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center", gap: 12 }}>
           <div>
-            <div style={{ fontFamily: T.mono, color: T.blue, fontSize: 12.5, letterSpacing: 0.5 }}>THE BACK TABLE</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>Open board, six setups, take-backs and hints. Break things. Nobody's keeping score.</div>
+            <div style={{ fontFamily: T.mono, color: T.blue, fontSize: 14, letterSpacing: 0.5 }}>THE BACK TABLE</div>
+            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 14 }}>Open board, six setups, take-backs and hints. Break things. Nobody's keeping score.</div>
           </div>
         </div>
       )}
@@ -2698,15 +2698,15 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
                 border: "1.5px solid " + (done ? T.blueDeep : ready ? ACC[b.ch] : T.onGhost),
                 borderRadius: 12, padding: 14, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap"
               }}>
-                <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontFamily: T.serif, fontSize: 14, fontWeight: 600, color: done ? T.ink : T.paper }}>{b.name}</div>
-                  <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: done ? T.inkSoft : T.onMute }}>
+                <div style={{ flex: 1, minWidth: 225 }}>
+                  <div style={{ fontFamily: T.serif, fontSize: 15.5, fontWeight: 600, color: done ? T.ink : T.paper }}>{b.name}</div>
+                  <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: done ? T.inkSoft : T.onMute }}>
                     {done ? "Sealed and sung." : ready ? b.tagline : "Locked, " + missing.length + " page" + (missing.length === 1 ? "" : "s") + " of its chapter still dark."}
                   </div>
                 </div>
-                {done ? <span style={{ fontFamily: T.mono, color: T.beigeDeep, fontSize: 11, letterSpacing: 0.5 }}>DONE</span> :
-                  <Btn kind={ready ? "prime" : "ghost"} disabled={!ready} onClick={() => onBoss(b)} style={{ fontSize: 12.5, padding: "8px 16px" }}>
-                    {ready ? "Face it" : <Lock size={14} />}
+                {done ? <span style={{ fontFamily: T.mono, color: T.beigeDeep, fontSize: 12.5, letterSpacing: 0.5 }}>DONE</span> :
+                  <Btn kind={ready ? "prime" : "ghost"} disabled={!ready} onClick={() => onBoss(b)} style={{ fontSize: 14, padding: "8px 16px" }}>
+                    {ready ? "Face it" : <Lock size={15.5} />}
                   </Btn>}
               </div>
             );
@@ -2716,14 +2716,14 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
             border: "2px solid " + (ledger.trialDone ? T.blueDeep : trialReady ? T.beigeDeep : T.onGhost),
             borderRadius: 12, padding: 16, textAlign: "center"
           }}>
-            <div style={{ fontFamily: T.mono, fontSize: 17, letterSpacing: 0.5, color: ledger.trialDone ? T.ink : T.paper, margin: "4px 0" }}>THE LONG GAME</div>
-            <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: ledger.trialDone ? T.inkSoft : T.onMute, maxWidth: 440, margin: "0 auto 10px" }}>
+            <div style={{ fontFamily: T.mono, fontSize: 19, letterSpacing: 0.5, color: ledger.trialDone ? T.ink : T.paper, margin: "4px 0" }}>THE LONG GAME</div>
+            <div style={{ fontFamily: T.serif, fontSize: 14, fontStyle: "italic", color: ledger.trialDone ? T.inkSoft : T.onMute, maxWidth: 490, margin: "0 auto 10px" }}>
               {ledger.trialDone
                 ? "The Pale Automaton hums an old lullaby now, when the light is low. You may sit with it whenever you wish."
                 : "A full game of chess against the Pale Automaton itself, every page, every law, one board. The finished thing all of this builds: you, playing."}
             </div>
             {ledger.trialDone ? (
-              <Btn kind="ghost" onClick={onTrial} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep, background: T.beigeWash }}>Play it again</Btn>
+              <Btn kind="ghost" onClick={onTrial} style={{ fontSize: 14, color: T.ink, borderColor: T.beigeDeep, background: T.beigeWash }}>Play it again</Btn>
             ) : (
               <Btn kind={trialReady ? "prime" : "ghost"} disabled={!trialReady} onClick={onTrial}>
                 {trialReady ? "Wake the Automaton" : "Every page and trial must burn first"}
@@ -2749,15 +2749,15 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
         ];
         const stat = (label, val, wide) => (
           <div style={{ gridColumn: wide ? "1 / span 2" : undefined, borderRadius: 12, padding: "8px 12px", background: T.well, border: "1px solid " + T.beigeEdge }}>
-            <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.blue }}>{label}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 14, color: T.paper }}>{val}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 0.5, color: T.blue }}>{label}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 15.5, color: T.paper }}>{val}</div>
           </div>
         );
         return (
           <div>
             <div style={{ textAlign: "center", marginBottom: 4 }}>
-              <div style={{ fontFamily: T.mono, fontSize: 16, letterSpacing: 0.5, color: T.beige }}>{title.toUpperCase()}</div>
-              <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 12.5, color: T.onMute }}>The club ledger.</div>
+              <div style={{ fontFamily: T.mono, fontSize: 18, letterSpacing: 0.5, color: T.beige }}>{title.toUpperCase()}</div>
+              <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 14, color: T.onMute }}>The club ledger.</div>
             </div>
             <RadarChart axes={axes} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 6 }}>
@@ -2767,7 +2767,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
               {stat("CABINET", Object.keys(ledger.cards || {}).length + " / " + CARDS.length)}
               {stat("HONORS", Object.keys(ledger.ach || {}).length)}
             </div>
-            <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 12.5, color: T.onMute, textAlign: "center", marginTop: 12 }}>
+            <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 14, color: T.onMute, textAlign: "center", marginTop: 12 }}>
               Precision is your average mark per page. The shape tells you where to spend your next evening.
             </div>
           </div>
@@ -2778,27 +2778,27 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
           <Card>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <b style={{ fontSize: 16 }}>{codex.name}</b>
-                <RankCount n={ledger.done[codex.id]} size={14} />
+                <b style={{ fontSize: 18 }}>{codex.name}</b>
+                <RankCount n={ledger.done[codex.id]} size={15.5} />
               </div>
-              <button onClick={() => setCodex(null)} aria-label="Close" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.inkSoft, padding: 4 }}>CLOSE</button>
+              <button onClick={() => setCodex(null)} aria-label="Close" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.inkSoft, padding: 4 }}>CLOSE</button>
             </div>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blueDeep, fontWeight: 600 }}>SAY IT PLAINLY</div>
-            <div style={{ fontSize: 14, marginBottom: 8 }}>{codex.hook.plain}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.roseDeep, fontWeight: 600 }}>SEE IT</div>
-            <div style={{ fontSize: 14, marginBottom: 8, fontStyle: "italic" }}>{codex.hook.image}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blueInk, fontWeight: 600 }}>REACH FOR IT WHEN</div>
-            <div style={{ fontSize: 14, marginBottom: 8 }}>{codex.hook.when}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.blueDeep, fontWeight: 600 }}>SAY IT PLAINLY</div>
+            <div style={{ fontSize: 15.5, marginBottom: 8 }}>{codex.hook.plain}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.roseDeep, fontWeight: 600 }}>SEE IT</div>
+            <div style={{ fontSize: 15.5, marginBottom: 8, fontStyle: "italic" }}>{codex.hook.image}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.blueInk, fontWeight: 600 }}>REACH FOR IT WHEN</div>
+            <div style={{ fontSize: 15.5, marginBottom: 8 }}>{codex.hook.when}</div>
             {codex.depth && (
               <div style={{ marginBottom: 8 }}>
-                <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>MARGIN NOTES</div>
-                {codex.depth.map((d, i) => <div key={i} style={{ fontSize: 14, marginBottom: 4 }}>{d}</div>)}
+                <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>MARGIN NOTES</div>
+                {codex.depth.map((d, i) => <div key={i} style={{ fontSize: 15.5, marginBottom: 4 }}>{d}</div>)}
               </div>
             )}
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES</div>
-            <div style={{ fontSize: 14, marginBottom: 12 }}>{codex.dues}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES</div>
+            <div style={{ fontSize: 15.5, marginBottom: 12 }}>{codex.dues}</div>
             <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-              <Btn kind="ghost" onClick={() => { const c = codex; setCodex(null); onLesson(c); }} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep }}>
+              <Btn kind="ghost" onClick={() => { const c = codex; setCodex(null); onLesson(c); }} style={{ fontSize: 14, color: T.ink, borderColor: T.beigeDeep }}>
                 Replay
               </Btn>
             </div>
@@ -2937,16 +2937,16 @@ export default function App() {
       <style>{KEYFRAMES}</style>
       <div style={{ position: "fixed", top: 10, left: 0, right: 0, zIndex: 90, display: "flex", flexDirection: "column", alignItems: "center", gap: 6, pointerEvents: "none" }}>
         {toasts.map((t) => (
-          <div key={t.id} style={{ animation: "tp-toast 3s ease both", background: T.overlay, border: "1px solid " + T.beigeDeep, color: T.paper, borderRadius: 99, padding: "7px 16px", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5 }}>
+          <div key={t.id} style={{ animation: "tp-toast 3s ease both", background: T.overlay, border: "1px solid " + T.beigeDeep, color: T.paper, borderRadius: 99, padding: "7px 16px", fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5 }}>
             {t.text}
           </div>
         ))}
       </div>
       <button onClick={() => { SFX.setOn(!soundOn); setSoundOn(!soundOn); }}
-        style={{ position: "fixed", right: 12, bottom: 12, zIndex: 80, width: 40, height: 40, borderRadius: 99,
+        style={{ position: "fixed", right: 12, bottom: 12, zIndex: 80, width: 46, height: 46, borderRadius: 99,
           border: "1px solid " + T.beigeLine, background: T.overlay, color: soundOn ? T.beige : T.onSoft,
           display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-        <span style={{ fontSize: 11, letterSpacing: 0.5 }}>{soundOn ? "SOUND" : "MUTED"}</span>
+        <span style={{ fontSize: 12.5, letterSpacing: 0.5 }}>{soundOn ? "SOUND" : "MUTED"}</span>
       </button>
       <div style={{ position: "relative", zIndex: 1 }}>{body}</div>
     </div>
