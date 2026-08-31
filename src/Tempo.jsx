@@ -1242,8 +1242,8 @@ function btnStyle(kind) {
 const SFX = (() => {
   let ctx = null, on = false;
   const ac = () => {
-    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { ctx = null; } }
-    if (ctx && ctx.state === "suspended") { try { ctx.resume(); } catch (e) {} }
+    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch { ctx = null; } }
+    if (ctx && ctx.state === "suspended") { try { ctx.resume(); } catch { /* resume is best effort */ } }
     return ctx;
   };
   const env = (freq, type, t0, dur, vol, slide) => {
@@ -1257,7 +1257,7 @@ const SFX = (() => {
     o.connect(g); g.connect(c.destination);
     o.start(c.currentTime + t0); o.stop(c.currentTime + t0 + dur + 0.03);
   };
-  const safe = (f) => { if (!on) return; try { f(); } catch (e) {} };
+  const safe = (f) => { if (!on) return; try { f(); } catch { /* audio is a nicety, never a failure */ } };
   return {
     setOn: (v) => { on = v; if (v) ac(); },
     isOn: () => on,
@@ -3392,10 +3392,10 @@ export default function App() {
   const [screen, setScreen] = useState({ name: "hub" });
   const [ledger, setLedger] = useState({ done: {}, bosses: {}, trialDone: false, chips: 60, cards: {}, ach: {}, salonBest: 0 });
   useEffect(() => {
-    try { const raw = localStorage.getItem("tempo-save"); if (raw) setLedger((old) => Object.assign({}, old, JSON.parse(raw))); } catch (e) {}
+    try { const raw = localStorage.getItem("tempo-save"); if (raw) setLedger((old) => Object.assign({}, old, JSON.parse(raw))); } catch { /* no storage, or a save we cannot read: start fresh */ }
   }, []);
   useEffect(() => {
-    try { localStorage.setItem("tempo-save", JSON.stringify(ledger)); } catch (e) {}
+    try { localStorage.setItem("tempo-save", JSON.stringify(ledger)); } catch { /* no storage: the session still plays, it just will not keep */ }
   }, [ledger]);
   const [cell, setCell] = useState(42);
   const [soundOn, setSoundOn] = useState(false);
