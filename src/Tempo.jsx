@@ -83,6 +83,7 @@ const T = {
   fileLight:  "#8a8372",
   fileDark:   "#dbe6f2",
   pieceShade: "#0b0e14",
+  pieceEdge:  "#2b3340",
 
   /* specular: the machined insets on the buttons and cards */
   sheen:      "rgba(255,255,255,0.45)",
@@ -1408,9 +1409,11 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
             fontSize: c * 0.72, lineHeight: 1,
             animation: last && last[1] === i ? "tp-drop .16s ease-out" : "none",
             color: p.c === "w" ? T.paper : T.ink,
-            textShadow: p.c === "w"
-              ? "0 1px 2px " + T.pieceShade + ", 0 0 5px " + T.wellDeep
-              : "0 1px 1px " + T.sheenSoft
+            /* the white pieces are cream and so are half the squares, so they
+               carry their own outline rather than leaning on a shadow */
+            WebkitTextStroke: p.c === "w" ? Math.max(1, c * 0.03).toFixed(2) + "px " + T.pieceEdge : undefined,
+            paintOrder: "stroke fill",
+            textShadow: p.c === "w" ? "none" : "0 1px 1px " + T.sheenSoft
           }}>{GLYPH[p.t]}</span>
         )}
         {isMark && !p && (
