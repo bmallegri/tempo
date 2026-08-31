@@ -3538,3 +3538,9 @@ export default function App() {
     </div>
   );
 }
+/* named exports: the engine and the content, so the tests can read them */
+export {
+  sq, nameOf, mkState, boardFrom, startBoard, attacked, attacksFrom, kingIdx,
+  inCheck, legalMoves, apply, statusOf, bestMove, answersFor, checkPredicate,
+  CHAPTERS, CONCEPTS, BOSSES, SALON, CARDS, SANDBOX_PRESETS, PHRASEBOOK, TOTAL_UNITS, T
+};
