@@ -1179,13 +1179,13 @@ const TOTAL_UNITS = 22; /* 18 pages + 3 club nights + the Long Game */
 const KEYFRAMES = `
 * { -webkit-font-smoothing: antialiased; }
 button:active { transform: scale(0.96); }
-.sig-press:active { transform: translateY(1px); filter: brightness(0.96); }
+.tp-press:active { transform: translateY(1px); filter: brightness(0.96); }
 .paper:nth-child(odd) { transform: rotate(-0.3deg); }
 .paper:nth-child(even) { transform: rotate(0.25deg); }
-@keyframes sig-drop { 0% { transform: scale(1.4) translateY(-7px); } 100% { transform: scale(1) translateY(0); } }
-@keyframes sig-toast { 0% { transform: translateY(-16px); opacity: 0; } 10% { transform: translateY(0); opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes sig-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-@keyframes sig-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes tp-drop { 0% { transform: scale(1.4) translateY(-7px); } 100% { transform: scale(1) translateY(0); } }
+@keyframes tp-toast { 0% { transform: translateY(-16px); opacity: 0; } 10% { transform: translateY(0); opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes tp-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+@keyframes tp-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 `;
 
@@ -1291,7 +1291,7 @@ function TypeText({ text }) {
 function SpeakerLine({ line }) {
   const isC = line.s === "c";
   return (
-    <div style={{ display: "flex", gap: 12, alignItems: "flex-start", animation: "sig-fade .5s both" }}>
+    <div style={{ display: "flex", gap: 12, alignItems: "flex-start", animation: "tp-fade .5s both" }}>
       
       <div style={{
         background: isC ? T.paper : "transparent",
@@ -1352,7 +1352,7 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
           cursor: onSquare ? "pointer" : "default", userSelect: "none",
           outline: isSel ? "2px solid " + T.blueDeep : "none", outlineOffset: -2,
           boxShadow: isSel ? "inset 0 0 0 3px " + T.blueLine : "none",
-          animation: isWrong ? "sig-shake .3s" : "none",
+          animation: isWrong ? "tp-shake .3s" : "none",
           opacity: dim ? 0.85 : 1
         }}>
         {col === 0 && (
@@ -1369,7 +1369,7 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
           <span style={{
             position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: c * 0.72, lineHeight: 1,
-            animation: last && last[1] === i ? "sig-drop .16s ease-out" : "none",
+            animation: last && last[1] === i ? "tp-drop .16s ease-out" : "none",
             color: p.c === "w" ? T.paper : T.ink,
             textShadow: p.c === "w"
               ? "0 1px 2px " + T.pieceShade + ", 0 0 5px " + T.wellDeep
@@ -1377,7 +1377,7 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
           }}>{GLYPH[p.t]}</span>
         )}
         {isMark && !p && (
-          <span style={{ position: "absolute", inset: 6, border: "2.5px solid " + T.beigeInk, borderRadius: "50%", animation: "sig-fade .25s both" }} />
+          <span style={{ position: "absolute", inset: 6, border: "2.5px solid " + T.beigeInk, borderRadius: "50%", animation: "tp-fade .25s both" }} />
         )}
         {isMark && p && (
           <span style={{ position: "absolute", top: 3, right: 3, width: 7, height: 7, borderRadius: "50%", background: T.beigeLight }} />
@@ -1487,7 +1487,7 @@ function formOf(ex) {
 function FeedbackLine({ msg, tone }) {
   if (!msg) return <div style={{ minHeight: 46 }} />;
   return (
-    <div key={msg} style={{ display: "flex", gap: 8, alignItems: "center", minHeight: 46, animation: "sig-fade .3s both" }}>
+    <div key={msg} style={{ display: "flex", gap: 8, alignItems: "center", minHeight: 46, animation: "tp-fade .3s both" }}>
       <div style={{
         fontFamily: T.serif, fontSize: 14, fontStyle: "italic",
         color: tone === "bad" ? T.rose : (tone === "good" ? T.good : T.onHi)
@@ -1747,7 +1747,7 @@ function ExercisePlayer({ ex, cell, onMistake, onDone }) {
       )}
       <Board board={actSt.board} cell={cell} onSquare={click} wrong={wrong} selected={selected} dots={dots} last={actSt.last} checkSq={statusOf(actSt) !== "play" ? null : (inCheck(actSt, actSt.turn) ? kingIdx(actSt.board, actSt.turn) : null)} />
       {note && (
-        <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 6, animation: "sig-fade .3s both" }}>{note}</div>
+        <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.good, textAlign: "center", marginTop: 6, animation: "tp-fade .3s both" }}>{note}</div>
       )}
       {!finished && ex.moveHint && (
         <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: T.onMute, textAlign: "center", marginTop: 6 }}>{ex.moveHint}</div>
@@ -1888,7 +1888,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
   return (
     <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px", textAlign: "center" }}>
       {header}
-      <div style={{ animation: "sig-fade .3s both", display: "inline-block", marginTop: 12 }}>
+      <div style={{ animation: "tp-fade .3s both", display: "inline-block", marginTop: 12 }}>
         <div style={{
           width: 110, height: 110, borderRadius: "50%", margin: "0 auto",
           background: T.beigeWash,
@@ -1969,7 +1969,7 @@ function BossRun({ boss, cell, onComplete, onExit }) {
   }
   return (
     <div style={{ maxWidth: 640, margin: "0 auto", padding: "24px 14px" }}>
-      <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, fontSize: 19, letterSpacing: 0.5, marginBottom: 6, animation: "sig-fade .3s both" }}>
+      <div style={{ textAlign: "center", fontFamily: T.mono, color: T.beige, fontSize: 19, letterSpacing: 0.5, marginBottom: 6, animation: "tp-fade .3s both" }}>
         Match complete
       </div>
       <Cutscene lines={boss.outro} onDone={() => onComplete(mistakes)} doneLabel="Back to the club" />
@@ -2067,7 +2067,7 @@ function Trial({ cell, onEnd, onExit }) {
             {thinking ? "The Pale Automaton considers..." : playerChecked ? "" : ended ? "" : "Your move. You play White."}
           </div>
           {playerChecked && !ended && (
-            <div style={{ fontFamily: T.serif, color: T.rose, textAlign: "center", fontSize: 14, marginBottom: 4, animation: "sig-fade .3s both" }}>
+            <div style={{ fontFamily: T.serif, color: T.rose, textAlign: "center", fontSize: 14, marginBottom: 4, animation: "tp-fade .3s both" }}>
               THE ALARM SOUNDS, move, block, or capture.
             </div>
           )}
@@ -2101,7 +2101,7 @@ function Trial({ cell, onEnd, onExit }) {
         </div>
       </div>
       {ended && (
-        <div style={{ textAlign: "center", marginTop: 16, animation: "sig-fade .3s both" }}>
+        <div style={{ textAlign: "center", marginTop: 16, animation: "tp-fade .3s both" }}>
           {result === "win" && <CelebrateOnce />}
           <div style={{ fontFamily: T.mono, fontSize: 19, color: result === "win" ? T.beige : result === "lose" ? T.rose : T.blueLight, letterSpacing: 0.5, marginBottom: 10 }}>
             {result === "win" ? "CHECKMATE, THE AUTOMATON FALLS" : result === "lose" ? "CHECKMATE, THE MACHINE TAKES THIS ONE" : "THE POSITION FREEZES, A DRAW"}
@@ -2120,7 +2120,7 @@ function Modal({ onClose, children }) {
       position: "fixed", inset: 0, background: T.overlay, zIndex: 50,
       display: "flex", alignItems: "center", justifyContent: "center", padding: 16
     }}>
-      <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560, width: "100%", maxHeight: "86vh", overflowY: "auto", animation: "sig-fade .25s both" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560, width: "100%", maxHeight: "86vh", overflowY: "auto", animation: "tp-fade .25s both" }}>
         {children}
       </div>
     </div>
@@ -2195,7 +2195,7 @@ function Cabinet({ ledger, onPull }) {
         </div>
       </div>
       {reveal && reveal.card && (
-        <div style={{ position: "relative", animation: "sig-fade .3s both", marginBottom: 16 }}>
+        <div style={{ position: "relative", animation: "tp-fade .3s both", marginBottom: 16 }}>
           <Card style={{
             borderColor: RARITY[reveal.card.rarity].ink,
             background: reveal.card.rarity === 3 ? T.paperBeige : reveal.card.rarity === 2 ? T.paperBlue : T.paperCard,
@@ -2740,12 +2740,12 @@ function SalonRun({ onExit, onDone }) {
           An old club tradition. No boards, no clocks: strategy against strategy, argued until one side runs out of reasons. Pick your table.
         </div>
         <div style={{ display: "grid", gap: 10 }}>
-          <div className="sig-press paper" onClick={() => { setDeck(1); setSeed((x) => x + 1); SFX.chime(); }}
+          <div className="tp-press paper" onClick={() => { setDeck(1); setSeed((x) => x + 1); SFX.chime(); }}
             style={{ cursor: "pointer", borderRadius: 12, padding: "14px 16px", border: "1px solid " + T.blueLine, background: T.well }}>
             <div style={{ fontFamily: T.mono, color: T.blue, fontSize: 14, letterSpacing: 0.5 }}>THE FIRST TABLE</div>
             <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>The fundamentals: storms and open files, plus what a free pawn really costs. Several arguments push back after your first answer.</div>
           </div>
-          <div className="sig-press paper" onClick={() => { setDeck(2); setSeed((x) => x + 1); SFX.chime(); }}
+          <div className="tp-press paper" onClick={() => { setDeck(2); setSeed((x) => x + 1); SFX.chime(); }}
             style={{ cursor: "pointer", borderRadius: 12, padding: "14px 16px", border: "1px solid " + T.blueLine, background: T.well }}>
             <div style={{ fontFamily: T.mono, color: T.blueSoft, fontSize: 14, letterSpacing: 0.5 }}>THE DEEP TABLE</div>
             <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>The subtler laws. Weak squares, bad bishops. And the question of when a queen should leave the room.</div>
@@ -2800,7 +2800,7 @@ function SalonRun({ onExit, onDone }) {
         <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>THE MIDNIGHT SALON · {idx + 1} OF {rounds.length}</div>
         <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.onMute, width: 70, textAlign: "right" }}>{score}</div>
       </div>
-      <div key={stage + idx} style={{ animation: "sig-fade .3s both", borderRadius: 16, padding: "14px 16px", marginBottom: 12,
+      <div key={stage + idx} style={{ animation: "tp-fade .3s both", borderRadius: 16, padding: "14px 16px", marginBottom: 12,
         background: inFollow ? T.duskWarm : T.duskCool,
         border: "1px solid " + (inFollow ? T.roseLine : T.blueLine) }}>
         <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: inFollow ? T.rose : T.blue, marginBottom: 4 }}>
@@ -2818,14 +2818,14 @@ function SalonRun({ onExit, onDone }) {
           const isPick = activeChosen === k;
           const tag = EFFTAG[o.eff];
           return (
-            <div key={stage + k} className="sig-press paper" onClick={() => pick(k)}
+            <div key={stage + k} className="tp-press paper" onClick={() => pick(k)}
               style={{ cursor: activeChosen == null ? "pointer" : "default", borderRadius: 12, padding: "10px 12px",
                 background: revealed && o.eff === 3 ? T.paperBeige : T.paperCard,
                 border: "1.5px solid " + (isPick ? T.beigeInk : revealed ? tag.c + "88" : T.inkLine),
                 opacity: revealed && !isPick && o.eff === 1 ? 0.75 : 1, transition: "all .25s" }}>
               <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.ink, lineHeight: 1.4 }}>{o.t}</div>
               {revealed && (
-                <div style={{ animation: "sig-fade .35s both" }}>
+                <div style={{ animation: "tp-fade .35s both" }}>
                   <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: tag.c, margin: "5px 0 3px" }}>
                     {tag.w}
                   </div>
@@ -2838,22 +2838,22 @@ function SalonRun({ onExit, onDone }) {
       </div>
       {activeChosen != null && !inFollow && (
         <div style={{ marginTop: 12, borderRadius: 12, padding: "10px 14px", border: "1px solid " + T.beigeLine,
-          background: T.beigeWash, animation: "sig-fade .4s both" }}>
+          background: T.beigeWash, animation: "tp-fade .4s both" }}>
           <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 3 }}>THE PRINCIPLE · {s.principle.toUpperCase()}</div>
           <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.paper }}>{s.deep}</div>
         </div>
       )}
       {activeChosen != null && !inFollow && (
         <div style={{ marginTop: 10, borderRadius: 12, padding: "12px 14px", border: "1px solid " + T.blueLine,
-          background: T.wellDeep, animation: "sig-fade .45s both" }}>
+          background: T.wellDeep, animation: "tp-fade .45s both" }}>
           <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blue, marginBottom: 8 }}>HOW HE THINKS IT THROUGH</div>
           {s.protocol.map((p, i) => (
-            <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7, animation: "sig-fade .4s both", animationDelay: (0.2 + i * 0.45) + "s", opacity: 0 }}>
+            <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7, animation: "tp-fade .4s both", animationDelay: (0.2 + i * 0.45) + "s", opacity: 0 }}>
               <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.blue, minWidth: 78, paddingTop: 2 }}>{p.k}</div>
               <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.paper, fontStyle: "italic" }}>{p.t}</div>
             </div>
           ))}
-          <div style={{ marginTop: 9, paddingTop: 9, borderTop: "1px solid " + T.blueEdge, animation: "sig-fade .4s both", animationDelay: (0.2 + s.protocol.length * 0.45) + "s", opacity: 0 }}>
+          <div style={{ marginTop: 9, paddingTop: 9, borderTop: "1px solid " + T.blueEdge, animation: "tp-fade .4s both", animationDelay: (0.2 + s.protocol.length * 0.45) + "s", opacity: 0 }}>
             <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.blueSoft, marginBottom: 3 }}>WHY MINDS DO THIS</div>
             <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.onHi }}>{s.cog}</div>
           </div>
@@ -2955,7 +2955,7 @@ function Sandbox({ cell, onExit, onReward }) {
         </div>
         <div style={{ display: "grid", gap: 10 }}>
           {SANDBOX_PRESETS.map((p) => (
-            <div key={p.id} className="sig-press" onClick={() => begin(p)}
+            <div key={p.id} className="tp-press" onClick={() => begin(p)}
               style={{ cursor: "pointer", borderRadius: 12, padding: "12px 16px", border: "1px solid " + T.beigeLine, background: T.well }}>
               <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 14, letterSpacing: 0.5 }}>{p.name}</div>
               <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 12.5 }}>{p.desc}</div>
@@ -3075,7 +3075,7 @@ function RadarChart({ axes }) {
         const [x, y] = pt(i, R);
         return <line key={i} x1={C} y1={C} x2={x} y2={y} stroke={T.blueEdge} strokeWidth="0.8" />;
       })}
-      <polygon points={dataPoly} fill={T.beigeWash} stroke={T.beige} strokeWidth="1.6" strokeLinejoin="round" style={{ animation: "sig-fade .6s both" }} />
+      <polygon points={dataPoly} fill={T.beigeWash} stroke={T.beige} strokeWidth="1.6" strokeLinejoin="round" style={{ animation: "tp-fade .6s both" }} />
       {axes.map((ax, i) => {
         const [x, y] = pt(i, Math.max(0.04, ax.v) * R);
         return <circle key={i} cx={x} cy={y} r="2.6" fill={T.beige} />;
@@ -3094,7 +3094,7 @@ function RadarChart({ axes }) {
 }
 
 function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, onPull, onPhrasebook }) {
-  const [tab, setTab] = useState("sigils");
+  const [tab, setTab] = useState("notebook");
   const [codex, setCodex] = useState(null);
   const units = unitsOf(ledger);
   const pct = Math.round((units / TOTAL_UNITS) * 100);
@@ -3123,10 +3123,10 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
         <div style={{ maxWidth: 380, margin: "8px auto 0" }}><Meter pct={pct} /></div>
       </div>
       <div style={{ textAlign: "center", borderBottom: "1px solid " + T.beigeEdge, marginBottom: 16 }}>
-        {tabBtn("sigils", "Notebook")}{tabBtn("trials", "Club Nights")}{tabBtn("cabinet", "Cabinet")}{tabBtn("profile", "Profile")}
+        {tabBtn("notebook", "Notebook")}{tabBtn("trials", "Club Nights")}{tabBtn("cabinet", "Cabinet")}{tabBtn("profile", "Profile")}
       </div>
 
-      {tab === "sigils" && Object.keys(ledger.done).length >= 4 && (
+      {tab === "notebook" && Object.keys(ledger.done).length >= 4 && (
         <div onClick={onDrill}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 20,
             border: "1px solid " + T.beigeLine, background: T.well,
@@ -3138,8 +3138,8 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
           </div>
         </div>
       )}
-      {tab === "sigils" && (
-        <div className="sig-press" onClick={onPhrasebook}
+      {tab === "notebook" && (
+        <div className="tp-press" onClick={onPhrasebook}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 18,
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center", gap: 12 }}>
@@ -3149,7 +3149,7 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
           </div>
         </div>
       )}
-      {tab === "sigils" && CHAPTERS.map((chp) => {
+      {tab === "notebook" && CHAPTERS.map((chp) => {
         const list = CONCEPTS.map((c, i) => ({ c, i })).filter((x) => x.c.ch === chp.n);
         return (
           <div key={chp.n} style={{ marginBottom: 22 }}>
@@ -3201,7 +3201,7 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
       })}
 
       {tab === "trials" && (
-        <div className="sig-press" onClick={onSandbox}
+        <div className="tp-press" onClick={onSandbox}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 18,
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center", gap: 12 }}>
@@ -3212,7 +3212,7 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
         </div>
       )}
       {tab === "trials" && (
-        <div className="sig-press" onClick={onSalon}
+        <div className="tp-press" onClick={onSalon}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 18,
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center", gap: 12 }}>
@@ -3483,7 +3483,7 @@ export default function App() {
       <style>{KEYFRAMES}</style>
       <div style={{ position: "fixed", top: 10, left: 0, right: 0, zIndex: 90, display: "flex", flexDirection: "column", alignItems: "center", gap: 6, pointerEvents: "none" }}>
         {toasts.map((t) => (
-          <div key={t.id} style={{ animation: "sig-toast 3s ease both", background: T.overlay, border: "1px solid " + T.beigeDeep, color: T.paper, borderRadius: 99, padding: "7px 16px", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5 }}>
+          <div key={t.id} style={{ animation: "tp-toast 3s ease both", background: T.overlay, border: "1px solid " + T.beigeDeep, color: T.paper, borderRadius: 99, padding: "7px 16px", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5 }}>
             {t.text}
           </div>
         ))}
