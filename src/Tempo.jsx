@@ -20,8 +20,6 @@ const T = {
   /* the dark blue ground */
   dusk:     "#151d2b",
   duskUp:   "#1c2434",
-  duskCool: "#1a2747",
-  duskWarm: "#272219",
 
   /* scrims over the ground: one base, four depths */
   wellSoft: "rgba(11,15,24,0.22)",
@@ -52,7 +50,6 @@ const T = {
   /* blue: the primary accent */
   blue:      "#9ec9ea",
   blueLight: "#c5e0f5",
-  blueSoft:  "#a9c4dc",
   blueDeep:  "#5f8fb8",
   blueInk:   "#3c6485",
   blueLine:  "rgba(158,201,234,0.45)",
@@ -73,7 +70,6 @@ const T = {
   roseDeep:  "#845656",
   roseBoard: "#b35c5c",
   clay:      "#c9a08a",
-  roseLine:  "rgba(201,138,138,0.5)",
 
   /* the board: slate blue and beige */
   boardLight: "#e8e0ce",
@@ -2266,376 +2262,6 @@ function Cabinet({ ledger, onPull }) {
   );
 }
 
-const SALON = [
-  { id: "storm", deck: 1, title: "The Pawn Storm",
-    pieces: [["g1", "wK"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["a2", "wP"], ["b2", "wP"], ["c3", "wP"], ["d4", "wP"], ["f1", "wR"], ["a1", "wR"], ["e3", "wB"], ["d2", "wQ"], ["f3", "wN"], ["c8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["e6", "bP"], ["g4", "bP"], ["h4", "bP"], ["d8", "bR"], ["h8", "bR"], ["d7", "bQ"], ["f6", "bN"]], spots: ["g4", "h4", "a2", "b2"], sit: "You castled kingside. He castled queenside, and now his pawns are marching at your king: g4, h4, g5.",
-    principle: "Races are won by racing", deep: "Opposite-side castling turns chess into a footrace, and you count attacking tempos, not material. The books call these mutual pawn storms. The first player to hesitate usually loses.",
-    protocol: [
-      { k: "NOTICE", t: "Kings on opposite wings. That single fact rewrites every evaluation on the board: this is now a race, and races are scored in tempos, not points." },
-      { k: "CANDIDATES", t: "Three plans volunteer: push my a and b pawns at his king, trade queens to defuse, or dig in and defend. Passive defense I discard on principle before calculating a single move." },
-      { k: "COMPARE", t: "I count. His storm needs g5, g6, and an open file: call it five tempos to real threats. My b4, b5, b6 lever arrives in four, because his king's pawns already moved and mine have not. I am faster." },
-      { k: "VERIFY", t: "Before committing I hunt for his best answer, not the one I hope for: can g5 come with tempo on a piece of mine? If yes, my count is wrong and I recount before touching anything." },
-    ],
-    cog: "De Groot's classic think-aloud studies found masters do not search deeper than club players: they perceive better. 'Opposite castling means race' is recognized before conscious thought, and it silently swaps in a different evaluation function.",
-    options: [
-      { t: "Counter-storm his king", eff: 3, why: "Every move you spend watching is a move he spends attacking. Push YOUR pawns at HIS king and make him blink first." },
-      { t: "Defend with every piece", eff: 1, why: "Pure defense loses the race. He attacks for free while you tie your own pieces in knots." },
-      { t: "Offer a queen trade", eff: 2, why: "Most storms die without a queen to crown them. If he declines, you lost nothing." },
-      { t: "Grab a far-away pawn", eff: 1, why: "While you snack on the a-pawn, he checkmates you. Material means nothing to a mated king." }
-    ],
-    follow: { sit: "He insists. g5 crashes in anyway, and lines start cracking open near your king.", pieces: [["g1", "wK"], ["f2", "wP"], ["h2", "wP"], ["a2", "wP"], ["b2", "wP"], ["c3", "wP"], ["d4", "wP"], ["f1", "wR"], ["a1", "wR"], ["e3", "wB"], ["d2", "wQ"], ["f3", "wN"], ["c8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["e6", "bP"], ["g3", "bP"], ["h4", "bP"], ["d8", "bR"], ["h8", "bR"], ["d7", "bQ"], ["f6", "bN"]], spots: ["g3", "h4", "f3", "e3"],
-      options: [
-        { t: "Trade off each attacker as it arrives", eff: 3, why: "Every trade is a bucket of water on his fire. An attack with no attackers is just weather." },
-        { t: "Push your counter-pawns even faster", eff: 2, why: "Still a race, and you are still in it. But now some defensive housekeeping buys you tempo too." },
-        { t: "Walk your king across the board", eff: 1, why: "Kings do not outrun pawn storms in the open. He would be checked the whole way." }
-      ] } },
-  { id: "outpost", deck: 1, title: "The Outpost Knight",
-    pieces: [["g1", "wK"], ["a2", "wP"], ["b2", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["c1", "wR"], ["f1", "wR"], ["e2", "wB"], ["d2", "wQ"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["e6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"], ["d5", "bN"], ["c8", "bB"], ["f8", "bR"], ["d8", "bQ"]], spots: ["d5", "e6"], sit: "His knight has settled on d5, protected by a pawn. No pawn of yours can ever kick it.",
-    principle: "Remove the permanent piece", deep: "An outpost is a square a piece can hold forever because no enemy pawn can ever attack it. Steinitz taught that a knight on a protected central outpost outweighs almost anything. Permanent problems get traded away.",
-    protocol: [
-      { k: "NOTICE", t: "My eye snags on d5 before anything else: a knight my pawns can never speak to again. Permanent features outrank temporary ones, so it jumps the queue." },
-      { k: "CANDIDATES", t: "Evict it, ignore it, trade it, or copy it. Eviction dies immediately: no pawn can ever reach the square, and piling pieces onto a pawn-guarded knight loses material by simple arithmetic." },
-      { k: "COMPARE", t: "Trading costs my good bishop, which stings, so I price the alternative: leave it, and every future plan of his gets a free anchor. A one-time payment against a permanent tax. I pay once." },
-      { k: "VERIFY", t: "Last check, his side of the deal: after bishop takes knight, the pawn recaptures. A file opens for his rook and a fixed pawn appears on d5. New position, new problems: I confirm I like those problems before I trade." },
-    ],
-    cog: "Chase and Simon's chunking experiments showed masters hold tens of thousands of board patterns: 'protected knight on the sixth' is retrieved as one chunk, arriving complete with its evaluation and its standard cure attached, no search required.",
-    options: [
-      { t: "Trade it off, whatever it costs", eff: 3, why: "It organizes his whole game from that square. Give a bishop for it if you must. Remove the tenant." },
-      { t: "Ignore it and play elsewhere", eff: 1, why: "It is not decoration. It watches six squares in your camp and every plan he makes will lean on it." },
-      { t: "Pile attackers onto it", eff: 1, why: "It is guarded by a pawn. Every capture there loses material. You cannot bully a paid-up tenant." },
-      { t: "Build your own outpost", eff: 2, why: "Counterplay in kind is honest chess. But his is installed and yours is a promise. Slower." }
-    ],
-    follow: { sit: "You gave your bishop for the knight. He recaptured with the pawn, and now a fixed pawn sits on d5 while his rook's file has opened.", pieces: [["g1", "wK"], ["a2", "wP"], ["b2", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["c1", "wR"], ["f1", "wR"], ["d2", "wQ"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["d5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"], ["c8", "bB"], ["e8", "bR"], ["d8", "bQ"]], spots: ["d5", "d4"],
-      options: [
-        { t: "Blockade and besiege the new d5 pawn", eff: 3, why: "The tenant became a fence post. A fixed pawn on an open board is a target that can never run." },
-        { t: "Contest the newly opened file", eff: 2, why: "Sensible housekeeping. Files matter. But the pawn is the lasting weakness the trade created for you." },
-        { t: "Regret the trade", eff: 1, why: "The knight was worse than the bishop. No refunds, no regrets, next move." }
-      ] } },
-  { id: "poison", deck: 1, title: "The Poisoned Pawn",
-    pieces: [["e1", "wK"], ["a1", "wR"], ["h1", "wR"], ["c3", "wN"], ["f3", "wN"], ["c4", "wB"], ["c1", "wB"], ["b3", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d3", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["a8", "bR"], ["h8", "bR"], ["c6", "bN"], ["g8", "bN"], ["d7", "bB"], ["f8", "bB"], ["d8", "bQ"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["e5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["b7", "b3"], sit: "Move six. His b7 pawn stands undefended, and your queen on b3 can march up and take it right now.",
-    principle: "Time is the currency of openings", deep: "The most famous poisoned pawn lives in the Najdorf Sicilian, where even world champions burned their fingers. The pawn is real. So is the cage that closes while your queen carries it home.",
-    protocol: [
-      { k: "NOTICE", t: "A free pawn on b7, and my alarm rings louder the freer it looks. Opening gifts are priced in tempo, so the first question is what the shopkeeper charges." },
-      { k: "CANDIDATES", t: "Take it now, take it only after calculating the escape, or decline and develop. Naive greed and total abstinence are both lazy answers: the honest one runs the numbers." },
-      { k: "COMPARE", t: "Cost of capture: my queen travels in, and after his rook hits her on b8 she spends two more moves coming home while he develops with every hit. Four tempos for one pawn, in the phase where tempo is the entire economy." },
-      { k: "VERIFY", t: "The exception check: can I calculate the full escape to a quiet position? Champions have taken this exact pawn with the route mapped end to end. If my calculation fogs anywhere along the line, the fog is my answer." },
-    ],
-    cog: "This is dual-process thinking in one decision: fast pattern memory flags the trap instantly, and slow calculation is invited only to hunt for the exception. Expertise is spending expensive attention exactly where cheap recognition says it might pay.",
-    options: [
-      { t: "Decline, develop a piece", eff: 3, why: "Early queen trips cost the one thing openings are about: time. His rook swings to b8 with tempo and he develops free moves while your queen swims home." },
-      { t: "Take it immediately", eff: 1, why: "They named it the poisoned pawn for a reason. Greed without calculation is how queens get lost." },
-      { t: "Take it after calculating the exit", eff: 2, why: "Masters do take it, with the escape counted to the last move. If you can truly calculate it, greed is a skill." },
-      { t: "Offer a queen trade instead", eff: 1, why: "Trading queens six moves in, for no reason, answers a question nobody asked." }
-    ] },
-  { id: "file", deck: 1, title: "The Open File",
-    pieces: [["g1", "wK"], ["a1", "wR"], ["f1", "wR"], ["d3", "wB"], ["c2", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["a8", "bR"], ["f8", "bR"], ["d6", "bB"], ["c7", "bQ"], ["a7", "bP"], ["b7", "bP"], ["c6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"], sit: "The center pawns have all been traded. One open file runs down the middle of the board, unclaimed.",
-    principle: "Files are claimed, not shared", deep: "Rooks starve behind pawns and feast on open files. Tarrasch taught that the file is only the doorway: the seventh rank behind it is the feast. Whoever arrives first rarely leaves.",
-    protocol: [
-      { k: "NOTICE", t: "One open file, and it lands like an open door in a hallway of walls. My rooks are my worst-employed pieces, and the board just published their job listing." },
-      { k: "CANDIDATES", t: "Claim it this move, prepare doubling first, or play elsewhere and claim later. 'Later' assumes his cooperation, and I never build plans on the opponent's cooperation." },
-      { k: "COMPARE", t: "First arrival matters because files change hands only through recapture. If my rook lands first with support ready, his challenge merely replaces my doorman with another of mine." },
-      { k: "VERIFY", t: "I look one step past the file: which entry square on the seventh does it feed, and is it guarded? A file leading nowhere is a corridor without rooms. This one leads to his queenside pawns. Good corridor." },
-    ],
-    cog: "Experts encode moves as destinations with futures attached: the file is perceived as a corridor to the seventh rank, one bound concept. Eye-tracking shows master gaze leaping to the far entry square within the first fixations.",
-    options: [
-      { t: "Rook to the file, first", eff: 3, why: "Whoever owns the only open file owns the seventh rank next. Files go to whoever arrives first." },
-      { t: "Double both rooks on it later", eff: 2, why: "Doubling is the right SECOND step. It starts with claiming the file before he does." },
-      { t: "Push your wing pawns", eff: 1, why: "You are decorating the edges while he moves into the only house on the street." },
-      { t: "March your king to the center", eff: 1, why: "With heavy pieces on the board, a centered king is a target. That plan waits for the endgame." }
-    ],
-    follow: { sit: "Your rook owns the file. Now his rook steps up to challenge it, offering the trade.", pieces: [["g1", "wK"], ["a1", "wR"], ["e1", "wR"], ["d3", "wB"], ["c2", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["a8", "bR"], ["e8", "bR"], ["d6", "bB"], ["c7", "bQ"], ["a7", "bP"], ["b7", "bP"], ["c6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e1", "e8", "a1"],
-      options: [
-        { t: "Keep a claimant: support or double", eff: 3, why: "The file belongs to whoever can RECAPTURE on it. Back your rook up and the trade only replaces your doorman." },
-        { t: "Trade, then invade with the queen", eff: 2, why: "Workable if your queen truly inherits the file. Heavier pieces make clumsier doormen, though." },
-        { t: "Retreat off the file", eff: 1, why: "You just handed over the only open file with a bow on it." }
-      ] } },
-  { id: "uprook", deck: 1, title: "Winning Won Games",
-    pieces: [["g1", "wK"], ["e2", "wQ"], ["d1", "wR"], ["c1", "wR"], ["e3", "wB"], ["a2", "wP"], ["b2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h3", "wP"], ["g8", "bK"], ["h4", "bQ"], ["g4", "bN"], ["d6", "bB"], ["f5", "bP"], ["g5", "bP"], ["a7", "bP"], ["b7", "bP"]], spots: ["h4", "g4"], sit: "You are up a whole rook. He is swinging wildly, sacrificing pawns, creating chaos everywhere.",
-    principle: "The winning side simplifies", deep: "Convert by trading pieces and keeping pawns: every swap drains his attack, and your extra rook wins any quiet ending by itself. Risk is a gift you hand to the losing player.",
-    protocol: [
-      { k: "NOTICE", t: "I am up a rook, and I can feel the pull to punish him faster. I name the feeling out loud so I can refuse it: excitement is not an evaluation." },
-      { k: "CANDIDATES", t: "Attack harder, simplify by trading pieces, or hoard everything. When winning, I shrink the menu on purpose: I want the version of this game with the fewest branches in it." },
-      { k: "COMPARE", t: "Each piece trade prunes his tree and mine. Chaos needs pieces the way fire needs fuel, and my extra rook wins any quiet ending by itself, so every simplification is strictly profit." },
-      { k: "VERIFY", t: "Now try to break it: what is his most annoying refusal? He dodges trades and checks forever. So I pre-decide the refund: which piece I hand back to buy silence. Choosing the payment before the argument is technique." },
-    ],
-    cog: "Risk preference should invert with the score, but loss aversion tempts winners to keep gambling with house money. Strong players consciously flip the policy: when ahead, minimize variance; when lost, maximize it. The emotion says attack; the policy says prune.",
-    options: [
-      { t: "Trade pieces, keep pawns", eff: 3, why: "Every trade drains his attack and walks the game toward an ending your rook wins alone." },
-      { t: "Attack even harder", eff: 1, why: "You have everything to lose and he has nothing. Complications are his only hope. Deny them." },
-      { t: "Trade pawns, keep pieces", eff: 1, why: "Backwards. Pawns are your future queens. Keep them, and shed the pieces his chaos needs." },
-      { t: "Give a little back for calm", eff: 2, why: "Returning an exchange to kill every threat is how professionals convert. Boring wins count the same." }
-    ],
-    follow: { sit: "He refuses every trade you offer and keeps his queen out, checking your king again and again.", pieces: [["g1", "wK"], ["e2", "wQ"], ["d1", "wR"], ["c1", "wR"], ["e3", "wB"], ["a2", "wP"], ["b2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h3", "wP"], ["g8", "bK"], ["h4", "bQ"], ["g4", "bN"], ["d6", "bB"], ["f5", "bP"], ["g5", "bP"], ["a7", "bP"], ["b7", "bP"]], spots: ["h4", "e3"],
-      options: [
-        { t: "Give material back to force quiet", eff: 3, why: "Toss a piece on the fire to end the checks. Up a rook, you can pay for silence and still win easily." },
-        { t: "Walk the king to a pawn shelter", eff: 2, why: "Solid. A king tucked behind pawns starves a queen of checks, eventually." },
-        { t: "Chase his queen with your rook", eff: 1, why: "Lone rooks that chase queens tend to meet forks. Patience, not pursuit." }
-      ] } },
-  { id: "raid", deck: 1, title: "The Early Queen Raid",
-    pieces: [["e1", "wK"], ["d1", "wQ"], ["a1", "wR"], ["h1", "wR"], ["b1", "wN"], ["g1", "wN"], ["c1", "wB"], ["f1", "wB"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["h4", "bQ"], ["a8", "bR"], ["h8", "bR"], ["b8", "bN"], ["g8", "bN"], ["c8", "bB"], ["f8", "bB"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d7", "bP"], ["e5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["h4", "f2"], sit: "Move two, and his queen swings out early, leering at your weakest pawn.",
-    principle: "Punish early queens with tempo", deep: "Every developing move that attacks his queen is a move played for free. This is the engine that refutes every cheap opening trap ever set, including the four-move mate aimed at f7.",
-    protocol: [
-      { k: "NOTICE", t: "Queen out on move two. My threat detector fires first, so I do the beginner-proof step: find her actual targets and name them out loud before deciding how scared to be. One target: f7." },
-      { k: "CANDIDATES", t: "Block with a pawn, defend with a developing piece, chase with my own queen, or mirror him. Any candidate that defends WITHOUT developing goes to the back of the line unexamined." },
-      { k: "COMPARE", t: "The scoring rule is tempo: a move guarding f7 that also develops a knight earns two salaries at once. Her early trip means every future hit on her pays me again. She is not a threat. She is an installment plan." },
-      { k: "VERIFY", t: "I calculate the mate attempt itself, once, to the end: after my move, does the four-move mate still function anywhere? My calm has to be earned by a concrete line, not assumed from a principle." },
-    ],
-    cog: "Threats hijack attention because salience detection is wired deep, and novices answer the loud thing with the first move they see. The trained pause between alarm and answer is executive inhibition, exercised on sixty-four squares.",
-    options: [
-      { t: "Develop a piece that defends", eff: 3, why: "Guard the threat WITH a developing move and his early queen becomes your gift: hit her, develop free." },
-      { t: "Push a pawn to hit her", eff: 2, why: "It defends and gains a tempo, which is honest. It also loosens your king's blanket a little." },
-      { t: "Bring your queen out to argue", eff: 1, why: "Now two queens waste time and yours started later. Never copy a mistake out of pride." },
-      { t: "Attack her with your rook pawn", eff: 1, why: "Edge pawn moves defend nothing here. She sidesteps and the threat remains." }
-    ] },
-  { id: "wing", deck: 1, title: "The Wing Attack",
-    pieces: [["g1", "wK"], ["a2", "wP"], ["b2", "wP"], ["c4", "wP"], ["d4", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["f1", "wR"], ["a1", "wR"], ["d3", "wB"], ["d1", "wQ"], ["f3", "wN"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c6", "bP"], ["d6", "bP"], ["e6", "bP"], ["f7", "bP"], ["g5", "bP"], ["h5", "bP"], ["f8", "bR"], ["a8", "bR"], ["e7", "bB"], ["d8", "bQ"], ["f6", "bN"]], spots: ["g5", "h5", "d5", "e4"], sit: "The center is still fluid, and he launches his pawns down the kingside anyway.",
-    principle: "Meet the flank in the center", deep: "The classical law: a wing attack is answered by a central break. It works because an open center makes his wing army commuters, suddenly needed at home and far from work.",
-    protocol: [
-      { k: "NOTICE", t: "His pawns march on the wing, and my first glance goes the other way, to the center: open, closed, or fluid? Wing gestures mean nothing until the center says what kind of game this is." },
-      { k: "CANDIDATES", t: "Break in the center, race on the opposite wing, or lock the middle and absorb. The center's status does my pruning for me: a fluid center puts the break on the table and takes the race off it." },
-      { k: "COMPARE", t: "Geometry decides: his wing army stands far from the middle. If files open there, his pieces become commuters, needed at home and stationed abroad. My break costs one pawn lever. Walking them back costs three moves." },
-      { k: "VERIFY", t: "The prophylactic question before I strike: what does he want the center to do? If his last quiet move supported locking it, he read the same law I did, and I break one move sooner than planned." },
-    ],
-    cog: "Prophylaxis is theory of mind on sixty-four squares: you model what he intends before you count what he threatens. The gaze studies back this up. Masters park their eyes on the opponent's half of the plan, while novices watch their own pieces like worried parents.",
-    options: [
-      { t: "Strike in the center", eff: 3, why: "Open the middle and his army is on the wrong side of the map, with his own king behind thin walls." },
-      { t: "Race him on the other wing", eff: 1, why: "Wing versus wing only works when the center is locked. Here the center is a door he left open." },
-      { t: "Lock the center, then defend", eff: 2, why: "If YOU seal the center his plan becomes legitimate but slow, and you can meet it calmly." },
-      { t: "Castle into the storm", eff: 1, why: "You would move your king to the exact address his pawns are marching toward." }
-    ],
-    follow: { sit: "You broke the center open. Now both armies stare down open lines in every direction.", pieces: [["g1", "wK"], ["a2", "wP"], ["b2", "wP"], ["c4", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["f1", "wR"], ["a1", "wR"], ["d3", "wB"], ["d1", "wQ"], ["f3", "wN"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c6", "bP"], ["e6", "bP"], ["f7", "bP"], ["g5", "bP"], ["h5", "bP"], ["f8", "bR"], ["a8", "bR"], ["e7", "bB"], ["d8", "bQ"], ["f6", "bN"]], spots: ["d5", "e5", "d1", "d8"],
-      options: [
-        { t: "Occupy the central files first", eff: 3, why: "You opened the doors, so walk through first. Initiative on open lines decides these positions." },
-        { t: "Trade queens to calm the board", eff: 2, why: "Reasonable if his attack still smolders. But you opened the center to USE it, not to sell it." },
-        { t: "Go back to defending the wing", eff: 1, why: "The wing stopped mattering the moment the middle opened. Old plans expire." }
-      ] } },
-  { id: "cramp", deck: 1, title: "The Cramped Position",
-    pieces: [["g1", "wK"], ["c2", "wQ"], ["a1", "wR"], ["e1", "wR"], ["b1", "wN"], ["d2", "wN"], ["c1", "wB"], ["f1", "wB"], ["a2", "wP"], ["b2", "wP"], ["d3", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["d4", "bP"], ["e4", "bP"], ["c5", "bP"], ["f5", "bP"], ["a7", "bP"], ["b7", "bP"], ["g7", "bP"], ["h7", "bP"], ["c6", "bN"], ["e6", "bN"], ["d6", "bB"], ["c8", "bB"], ["a8", "bR"], ["f8", "bR"], ["d8", "bQ"]], spots: ["b1", "c1", "d2", "e1"], sit: "You have no space. Your pieces are stepping on each other. He offers to trade a pair of knights.",
-    principle: "Cramped players trade", deep: "Capablanca's housekeeping rule: fewer pieces need fewer squares. The side with space avoids trades to keep the squeeze, so when a cramped player is offered one, the answer is usually thank you.",
-    protocol: [
-      { k: "NOTICE", t: "My pieces are queuing for the same three squares. Cramp is not a mood, it is countable: I tally usable squares per piece, and the number is embarrassing." },
-      { k: "CANDIDATES", t: "Accept his knight trade, decline to keep tension, or push a pawn to buy room. Declining scores worst on the only metric that matters here: squares per remaining piece." },
-      { k: "COMPARE", t: "The arithmetic of relief: each trade removes one of my tenants without removing any rooms. His logic is the mirror image of mine, which is exactly why the offer was a small mistake." },
-      { k: "VERIFY", t: "Trades have side effects, so I check what his recapture improves: does taking back activate his rook or repair his structure? Relief that gifts him an open file needs a second appraisal." },
-    ],
-    cog: "Working memory holds a handful of items, and tangled positions overflow it fast: blunders cluster in cramped games. Simplification is cognitive offloading, shrinking the position until it fits back inside the window where humans calculate honestly.",
-    options: [
-      { t: "Accept the trade gladly", eff: 3, why: "Every swap turns your closet into a room. The crowded side welcomes the moving van." },
-      { t: "Push a pawn to claim space", eff: 2, why: "The other classic cure. Space can be taken back by force, checked twice in a tangled house." },
-      { t: "Decline and keep pieces on", eff: 1, why: "Keeping pieces favors the side with room to use them. That side is not you." },
-      { t: "Trade only the queens", eff: 1, why: "Queens are not what is stepping on your toes. Trade the crowd, not the ballroom." }
-    ] },
-  { id: "premature", deck: 1, title: "The Premature Attack",
-    pieces: [["g1", "wK"], ["f1", "wR"], ["a1", "wR"], ["f3", "wN"], ["c3", "wN"], ["e2", "wB"], ["c1", "wB"], ["d1", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d3", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["h4", "bQ"], ["c5", "bB"], ["b8", "bN"], ["g8", "bN"], ["a8", "bR"], ["h8", "bR"], ["c8", "bB"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["e5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["h4", "c5", "f2"], sit: "He has developed two pieces, castled nothing, and launched a direct attack on your king anyway.",
-    principle: "Attacks need attackers", deep: "Count attackers against defenders before you ever panic. Unsound attacks do not merely fail: they rebound, because the charging pieces left holes at home and a king with no bodyguards.",
-    protocol: [
-      { k: "NOTICE", t: "He attacks with two developed pieces, and I make myself count instead of flinch: attackers versus defenders in the actual sector, right now. Two against three. The number says bluff." },
-      { k: "CANDIDATES", t: "Defend precisely while developing, trade off his active pair, or counter-sacrifice for chaos. Chaos I reject on identity: the sounder position wants the quieter board." },
-      { k: "COMPARE", t: "Every precise defensive move of mine is also a developing move; every attacking move of his borrows from an empty account. The gap compounds each tempo, so time itself is on my payroll." },
-      { k: "VERIFY", t: "The hook check before each defense: does this move hand him a new target to switch toward? Attacks rebound hardest against defenders who never returned a single free weakness." },
-    ],
-    cog: "Kotov's discipline from Think Like a Grandmaster: list every candidate BEFORE analyzing any, because a mind that dives into the first line anchors there. The premature attacker skipped the census. The defender wins by taking one.",
-    options: [
-      { t: "Defend precisely, develop, wait", eff: 3, why: "Meet each threat with a useful move and his assault runs out of soldiers, leaving his own king home alone." },
-      { t: "Trade off his two active pieces", eff: 2, why: "Removing the only attackers ends the attack by arithmetic. Less ambitious than punishing him, very safe." },
-      { t: "Counter-sacrifice immediately", eff: 1, why: "Answering unsound chaos with your own makes the game fair again. Never make it fair. Make it correct." },
-      { t: "Run your king early", eff: 1, why: "Your king was fine. Moving it donates the tempo his attack was missing." }
-    ],
-    follow: { sit: "His attack fizzled, exactly as you read it. Now his overextended pieces are drifting backward in disorder.", pieces: [["g1", "wK"], ["f1", "wR"], ["a1", "wR"], ["f3", "wN"], ["c3", "wN"], ["e2", "wB"], ["c1", "wB"], ["d1", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d3", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["e7", "bQ"], ["b6", "bB"], ["b8", "bN"], ["g8", "bN"], ["a8", "bR"], ["h8", "bR"], ["c8", "bB"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["e5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["d4", "f5"],
-      options: [
-        { t: "Strike now, while he is tangled", eff: 3, why: "A rebounding attack is a broken formation. The punishment window opens the moment his pieces turn around." },
-        { t: "Consolidate one more move", eff: 2, why: "Careful and decent. But windows close. One safety move, then the bill comes due." },
-        { t: "Offer peace", eff: 1, why: "Never offer peace to a routed army." }
-      ] } },
-  { id: "passer", deck: 1, title: "The Passed Pawn",
-    pieces: [["g2", "wK"], ["d1", "wR"], ["a4", "wP"], ["f2", "wP"], ["g3", "wP"], ["h4", "wP"], ["g7", "bK"], ["d8", "bR"], ["f7", "bP"], ["g6", "bP"], ["h5", "bP"]], spots: ["a4", "a1", "a2", "a3"], sit: "A rook endgame. Your a-pawn is passed, and both rooks are still deciding where to live.",
-    principle: "Rooks belong behind passers", deep: "Tarrasch's most quoted law, and it works both directions: behind YOUR passer the rook pushes and grows stronger with every step. Behind HIS, it drags on the pawn like an anchor.",
-    protocol: [
-      { k: "NOTICE", t: "A passed pawn changes what every piece is FOR. My rook stops being a fighter and auditions for exactly one role: escort. The only question is which side of the pawn it stands on." },
-      { k: "CANDIDATES", t: "Rook behind, rook in front, king escort, or push and pray. Front and behind look symmetric to the untrained eye, which is precisely why the rule exists: the geometry says they are opposites." },
-      { k: "COMPARE", t: "I walk the pawn forward in my head. From behind, each step lengthens my rook's reach. From in front, each step shortens it until my rook is a wall my own pawn built. One plan compounds. The other decays." },
-      { k: "VERIFY", t: "Mirror check: where does HIS rook belong? Also behind my pawn. The post is contested real estate, and in contested real estate, arriving second means arriving never." },
-    ],
-    cog: "Heuristics like Tarrasch's compress a thousand endgames into one cached instruction, freeing calculation for exceptions. Expertise is not attending to more: it is attending to less, correctly. The rule is compiled experience.",
-    options: [
-      { t: "Put your rook behind it", eff: 3, why: "From behind, the rook escorts the pawn forward and its scope grows with every step the pawn takes." },
-      { t: "Put your rook in front of it", eff: 1, why: "The rook becomes the pawn's prisoner: every advance shortens its own view, and it ends passive in the corner." },
-      { t: "Walk your king over to escort", eff: 2, why: "Real endgame technique, just the second act here. The rook takes its post first." },
-      { t: "Shove it forward unsupported", eff: 2, why: "Passed pawns must be pushed, says the proverb, but pushed WITH support. Unescorted sprinters get arrested." }
-    ] },
-  { id: "badb", deck: 2, title: "The Bad Bishop",
-    pieces: [["g1", "wK"], ["d2", "wB"], ["c3", "wP"], ["d4", "wP"], ["e5", "wP"], ["a2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e1", "wR"], ["d1", "wQ"], ["g8", "bK"], ["e4", "bN"], ["b7", "bB"], ["d5", "bP"], ["e6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"], ["a7", "bP"], ["b6", "bP"], ["e8", "bR"], ["d7", "bQ"]], spots: ["d2", "c3", "d4", "e5", "e4"], sit: "Your bishop stares at the back of its own pawn chain. His knight, meanwhile, is dancing.",
-    principle: "Trade your worst piece", deep: "A bishop walled in by its own pawns is a tall pawn. Suba's consolation says bad bishops protect good pawns, so it can earn its keep as a guard. But given any chance, you trade the bad one and keep the poetry.",
-    protocol: [
-      { k: "NOTICE", t: "I audit my pieces like a payroll: who actually earns their squares? The bishop behind its own pawn chain earns nothing, and honest bookkeeping refuses to average that away." },
-      { k: "CANDIDATES", t: "Trade it, free it by rerouting pawns, park it as a guard, or ignore it. Ignoring loses the audit: a bad piece is a standing tax on every plan that includes it." },
-      { k: "COMPARE", t: "Price each cure: the trade costs a tempo, rerouting costs structure, guarding costs ambition. Then price doing nothing: fighting seven against eight forever. Every cure is cheaper than the disease." },
-      { k: "VERIFY", t: "Before trading I confirm which of HIS pieces leaves in the deal: swapping my worst for his worst changes nothing. My tall pawn must purchase his dancer, or the trade waits." },
-    ],
-    cog: "The Einstellung effect: a familiar frame ('material is equal') blinds players to the functional count, where a buried bishop is half a piece. Experts read positions as jobs rather than head counts, and that way of reading is the skill.",
-    options: [
-      { t: "Trade it off or break it out", eff: 3, why: "The cure for a bad piece: swap it for one of his good ones, or reroute your pawns so it breathes again." },
-      { t: "Keep it as a bodyguard", eff: 2, why: "Bad bishops protect good pawns. As a humble defender it earns its keep. Expect no poetry from it." },
-      { t: "Trade your active pieces instead", eff: 1, why: "Then you are left holding only the bad one. You trade your worst piece, never your best." },
-      { t: "Put more pawns on its color", eff: 1, why: "You are bricking up its last windows." }
-    ] },
-  { id: "pair", deck: 2, title: "The Two Bishops",
-    pieces: [["g1", "wK"], ["d3", "wB"], ["e3", "wB"], ["d1", "wR"], ["a2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["e6", "bB"], ["f6", "bN"], ["d8", "bR"], ["a7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["d3", "e3"], sit: "The board is wide open, and you own both bishops against his bishop and knight.",
-    principle: "The pair loves open air", deep: "Two bishops cover both colors at once and strike both wings in a single move. Steinitz converted the pair by restricting the knight square by square until it had nowhere respectable left to stand.",
-    protocol: [
-      { k: "NOTICE", t: "Two bishops on an open board, and I feel the geometry before I can say it: both colors answer to me, and his knight needs three moves to reach anywhere it is wanted." },
-      { k: "CANDIDATES", t: "Preserve the pair and widen the game, cash one bishop for a concession, or advance pawns to cage the knight. Cashing out without concrete profit repeals my own advantage." },
-      { k: "COMPARE", t: "The pair scores by distance: play on both wings and my bishops commute at light speed while his knight buys local tickets. Every widening of the front compounds the interest." },
-      { k: "VERIFY", t: "A knight-square census before each pawn move: my advances must STEAL his stops, never donate one. A single careless push that grants his knight an outpost refunds the entire pair." },
-    ],
-    cog: "Masters evaluate mobility as futures, not present moves: the pair's value lives in positions five moves away. Holding tomorrow's geometry inside today's glance is trained pattern projection, the quiet cousin of calculation.",
-    options: [
-      { t: "Keep them, stretch the game wide", eff: 3, why: "Avoid trades, play on both wings at once, and let his knight arrive late to everything." },
-      { t: "Take squares from his knight", eff: 2, why: "Careful pawn advances that deny the knight its stops make the pair even stronger." },
-      { t: "Trade one bishop for the knight", eff: 1, why: "That returns the whole advantage for free. The pair is only a pair while there are two." },
-      { t: "Close the center with pawns", eff: 1, why: "Closed positions are knight country. You would be flooding your own advantage." }
-    ] },
-  { id: "isolani", deck: 2, title: "The Isolated Pawn",
-    pieces: [["g1", "wK"], ["d1", "wR"], ["f1", "wR"], ["e2", "wN"], ["c1", "wB"], ["c2", "wQ"], ["a2", "wP"], ["b2", "wP"], ["e3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["d5", "bP"], ["a7", "bP"], ["b7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"], ["d8", "bR"], ["f8", "bR"], ["e6", "bB"], ["d7", "bQ"], ["f6", "bN"]], spots: ["d5", "d4"], sit: "His center pawn stands alone. No neighboring pawn of his can ever defend it again.",
-    principle: "Restrain, blockade, destroy", deep: "Nimzowitsch's famous recipe from My System. The square in front of an isolated pawn is sacred: no enemy pawn can ever chase your piece from it, and a blockaded pawn is a prisoner awaiting trial.",
-    protocol: [
-      { k: "NOTICE", t: "His center pawn has no neighbors, and my attention slides past the pawn to the square in front of it. The pawn is the prisoner. That square is the lock." },
-      { k: "CANDIDATES", t: "Blockade the square, besiege the pawn at once, or trade down toward an ending. Immediate siege without the blockade lets the prisoner lunge forward and buy freedom with its own funeral." },
-      { k: "COMPARE", t: "Nimzowitsch's order of operations: restrain, blockade, destroy. The sequence matters because each step makes the next one safe: a blockaded pawn cannot advance, so the siege proceeds without counterplay." },
-      { k: "VERIFY", t: "The dynamic audit: an isolani pays rent in piece activity while pieces remain. I confirm his activity has answers BEFORE trading toward the ending, or the static win arrives after the dynamic loss." },
-    ],
-    cog: "This is hierarchical planning: a stored plan with its steps in order, pulled out whole and put to work. The expert does not rediscover the plan at the board: thinking is reserved for this position's exceptions to the template.",
-    options: [
-      { t: "Blockade the square in front", eff: 3, why: "A knight parked in front of it can never be pawn-kicked, the pawn can never walk, and the siege can begin at leisure." },
-      { t: "Steer toward an endgame", eff: 2, why: "Isolated pawns grow weaker as pieces leave the board. Every trade brings its trial closer." },
-      { t: "Attack it with everything now", eff: 1, why: "Unblockaded, it simply advances, sacrifices itself, and frees his whole game while your pieces stare." },
-      { t: "Win it at any cost", eff: 1, why: "Losing material to win a pawn is called losing. The pawn is a project, not an emergency." }
-    ] },
-  { id: "seventh", deck: 2, title: "The Seventh Rank",
-    pieces: [["g1", "wK"], ["e1", "wR"], ["a2", "wP"], ["b2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["c8", "bR"], ["a7", "bP"], ["b7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e7", "b7", "f7"], sit: "Your rook can land on his second rank, in among his unmoved pawns, and nothing can kick it.",
-    principle: "The seventh rank feeds rooks", deep: "A rook on the seventh eats pawns sideways and cages the enemy king on its back row at the same time. Two rooks there are called pigs on the seventh, and they eat everything.",
-    protocol: [
-      { k: "NOTICE", t: "The seventh rank stands open, and I picture my rook there before calculating anything: pawns attackable sideways, a king fenced on its own back row. Two revenues, one address." },
-      { k: "CANDIDATES", t: "Occupy now, prepare doubling first, or cash the rank in for a single pawn. Cashing out is a mispricing: the rank is an annuity, not a coin." },
-      { k: "COMPARE", t: "Against every other square my rook could take: nothing else attacks targets that cannot flee AND restricts the enemy king in the same breath. Dual-purpose squares win comparisons by default." },
-      { k: "VERIFY", t: "The eviction check: can anything challenge my rook there, and if his rook contests, who recaptures? A seventh rank held for one move is theater. Held for five, it is the game." },
-    ],
-    cog: "Dual-purpose scoring is expert shorthand: one move billed to two accounts at once. Sit a master in front of this position and the trackers catch it. The eyes land on the double-duty square inside the first seconds, before a single line gets calculated.",
-    options: [
-      { t: "Plant it there immediately", eff: 3, why: "It attacks pawns that cannot advance out of danger and fences the king at once. Rook heaven has an address." },
-      { t: "Double both rooks there", eff: 2, why: "The dream, when time allows. It starts with the first rook claiming the rank." },
-      { t: "Only if it wins a pawn at once", eff: 1, why: "The rank's value is lasting pressure, not loose change. You are pricing a house by its doormat." },
-      { t: "Trade it for his defending rook", eff: 1, why: "You would be selling the best-placed piece on the board at cost." }
-    ],
-    follow: { sit: "Your rook feasts on the seventh. His king starts crawling out through the corner to escape the cage.", pieces: [["g1", "wK"], ["e7", "wR"], ["a2", "wP"], ["b2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["f8", "bK"], ["c8", "bR"], ["a7", "bP"], ["b7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e7", "f8", "e8"],
-      options: [
-        { t: "Cut the escape with checks and fences", eff: 3, why: "The rank is a fence as much as a feast. A king cut off on the back rows stays in checkmate range." },
-        { t: "Grab another pawn meanwhile", eff: 2, why: "Profitable, but a king that escapes the cage devalues the whole rank. Fence first, feast second." },
-        { t: "Chase the king with the rook alone", eff: 1, why: "One piece never mates a walking king. Herd it, do not chase it." }
-      ] } },
-  { id: "color", deck: 2, title: "The Weak Squares",
-    pieces: [["g1", "wK"], ["c4", "wB"], ["g5", "wN"], ["b3", "wQ"], ["e1", "wR"], ["a2", "wP"], ["b2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["h8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["f6", "bP"], ["g6", "bP"], ["h7", "bP"], ["e7", "bB"], ["f8", "bR"], ["a8", "bR"], ["d7", "bQ"]], spots: ["e6", "f7", "f5", "h5"], sit: "He traded away his light-squared bishop, and now the light squares around his king have no keeper.",
-    principle: "Squares, not pieces", deep: "When a bishop leaves, every square of its color becomes a little orphaned. Pieces you park on those squares can never be challenged by their natural enemy again. Strong players attack squares first and pieces second.",
-    protocol: [
-      { k: "NOTICE", t: "His light-squared bishop left the board, and for a moment I stop seeing pieces and see colors: a lattice of light squares around his king with no natural keeper left alive." },
-      { k: "CANDIDATES", t: "Invade the bare color with knight and queen, fix his pawns onto the opposite color first, or trade my own light bishop. That last one is listed only so I can reject it on principle." },
-      { k: "COMPARE", t: "Permanence ranks the plans: whatever I place on his bare color can never meet its natural enemy again. Freezing his pawns on dark squares widens the orphanage; the invasion collects afterward." },
-      { k: "VERIFY", t: "The substitute-defender check: knights and queens can still guard single light squares, at a price. I map which invasion square his knight can reach, and enter through the door it cannot." },
-    ],
-    cog: "Perceiving 'the light squares' as one object is chunking at its purest: a distributed set bound into a single attended structure. That re-binding of the board into wholes is what ten thousand studied patterns actually purchases.",
-    options: [
-      { t: "March pieces onto those squares", eff: 3, why: "Your knight or queen on his bare light squares can never be met by the piece built to evict them. Move in permanently." },
-      { t: "Fix his pawns on dark squares", eff: 2, why: "Pawns frozen on dark squares can never cover light ones again. You are widening the orphanage." },
-      { t: "Trade your light bishop too", eff: 1, why: "Your light bishop is the invasion's landlord: the one piece he can never oppose. Keep it like treasure." },
-      { t: "Attack his dark squares instead", eff: 1, why: "Those are the guarded ones. You are knocking on the only locked door in the house." }
-    ] },
-  { id: "queentrade", deck: 2, title: "The Queen Trade Question",
-    pieces: [["g1", "wK"], ["g4", "wQ"], ["f3", "wN"], ["d3", "wB"], ["e1", "wR"], ["f1", "wR"], ["a2", "wP"], ["b2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h4", "wP"], ["g8", "bK"], ["g6", "bQ"], ["e7", "bB"], ["f8", "bR"], ["a8", "bR"], ["d7", "bN"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["g4", "g6"], sit: "Your attack on his king is gathering. He calmly offers to trade queens.",
-    principle: "The attacker keeps queens", deep: "The queen is the mating engine, and defenders beg for its removal precisely because most attacks die without it. Trade her only when it wins material outright or walks straight into a won ending.",
-    protocol: [
-      { k: "NOTICE", t: "Mid-attack, he offers the queen trade, and I read the offer itself as data: defenders propose trades the way drowning men propose swimming lessons." },
-      { k: "CANDIDATES", t: "Decline and press, accept for concrete profit, or accept and attack with the leftovers. While attacking, decline is the default: the exceptions must prove themselves in a written line." },
-      { k: "COMPARE", t: "Mate threats price the queen far beyond her nine points: no other piece covers enough squares to weave a net alone. Rooks continuing the attack knock politely where she kicked doors down." },
-      { k: "VERIFY", t: "The exception audit, concretely: does accepting win material by force, or land me in an ending I can NAME as won? If no line ends in a number or a known ending, the offer dies unmourned." },
-    ],
-    cog: "Reading an offer as evidence is inverse planning: working out what he believes from what he just did. Negotiation research documents the same habit. The proposal reveals the proposer, and strong players bill him for the information.",
-    options: [
-      { t: "Decline and keep the engine", eff: 3, why: "No piece delivers mate like the queen. His offer is the defender's oldest plea: refuse it and press on." },
-      { t: "Accept only for clear profit", eff: 2, why: "The honest exception: if the trade wins material or reaches a winning ending, take the sure thing." },
-      { t: "Accept happily", eff: 1, why: "You just sold the attack's engine at asking price. He exhales, and your initiative becomes a memory." },
-      { t: "Trade and attack with rooks", eff: 1, why: "Rooks alone knock politely where the queen kicked doors. The attack loses its teeth." }
-    ] },
-  { id: "space", deck: 2, title: "The Space Advantage",
-    pieces: [["g1", "wK"], ["c4", "wP"], ["d5", "wP"], ["e5", "wP"], ["f4", "wP"], ["a2", "wP"], ["b2", "wP"], ["g2", "wP"], ["h2", "wP"], ["d1", "wQ"], ["a1", "wR"], ["f1", "wR"], ["c3", "wN"], ["e3", "wB"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"], ["e7", "bB"], ["e8", "bR"], ["d8", "bQ"], ["b8", "bN"], ["a8", "bR"]], spots: ["c4", "d5", "e5", "f4"], sit: "Your pawns stand tall across the middle. His whole army lives in three cramped rows.",
-    principle: "Space squeezes, trades relieve", deep: "The side with space keeps pieces on the board, because his pieces trip over each other while yours stroll. Squeeze first, improve every piece, and only then open the position on your terms.",
-    protocol: [
-      { k: "NOTICE", t: "My pawns hold the middle and his army breathes through a straw. I convert the feeling into a count: his knight owns two squares, mine owns six. Space is mobility, itemized." },
-      { k: "CANDIDATES", t: "Squeeze and improve, break through immediately, or trade pieces to simplify. Trading is the trap candidate: it ventilates the man I am smothering." },
-      { k: "COMPARE", t: "Patience compounds here: every improving move widens the mobility gap while his pieces shuffle in place. The breakthrough gains value each move I delay it, which makes waiting the aggressive choice." },
-      { k: "VERIFY", t: "The counterplay scan, every single move: cramped armies live for one freeing pawn break. I name his break, script my answer to it in advance, and only then continue improving." },
-    ],
-    cog: "Waiting on a payoff while it grows is hard: impatience is the documented human default. The squeeze trains the rare inversion: valuing an option more for not cashing it yet.",
-    options: [
-      { t: "Avoid trades and squeeze slowly", eff: 3, why: "Each of his pieces has fewer squares than yours. Keep the crowd in his house and improve at leisure." },
-      { t: "Prepare the breakthrough patiently", eff: 2, why: "The break is the plan eventually. Rushed, it releases every prisoner at once." },
-      { t: "Trade pieces to simplify", eff: 1, why: "Every trade is a window opened in his crowded house. Why ventilate the man you are smothering?" },
-      { t: "Push every pawn forward", eff: 1, why: "Overextension leaves holes behind the lines, and cramped armies are excellent at sneaking into holes." }
-    ] },
-  { id: "oppbishops", deck: 2, title: "The Opposite Bishops",
-    pieces: [["g1", "wK"], ["e3", "wB"], ["a4", "wP"], ["b3", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["d5", "bB"], ["b6", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["a4", "a6"], sit: "Only bishops remain, one each, living on opposite colors. You are up a single pawn.",
-    principle: "Opposite bishops need two doors", deep: "His bishop can blockade one pawn on its own color forever, which is why one extra pawn so often draws these endings. Victory needs two separate threats, far apart, stretching one bishop past its reach.",
-    protocol: [
-      { k: "NOTICE", t: "Opposite-colored bishops, and my extra pawn gets a formal correction: his bishop is a permanent goalkeeper on one color, so the default result just slid toward a draw. I believe the structure, not the scoreboard." },
-      { k: "CANDIDATES", t: "Manufacture a second distant target, force a pure pawn ending, or push the passer and hope. Hope is not a plan: the pawn walks exactly until it reaches his bishop's color, then retires." },
-      { k: "COMPARE", t: "One goalkeeper, two goals: threats on opposite wings stretch a single bishop past its geometry. The win condition here is not force. It is distance." },
-      { k: "VERIFY", t: "The fortress check before every trade: some of these endings are drawn even two pawns up if the blockade square is the wrong color for me. I verify my target squares are ones his bishop can never touch." },
-    ],
-    cog: "Downgrading your own chances against the grain of desire is active debiasing: motivated reasoning wants the extra pawn to matter. This ending is a laboratory drill in believing the position's structure over your own scoreboard.",
-    options: [
-      { t: "Create a second target far away", eff: 3, why: "One bishop cannot hold two doors on opposite wings. Stretch him until something tears." },
-      { t: "Trade into a pure pawn ending", eff: 2, why: "If you can ever force it, the draw evaporates instantly. Forcing it is the hard part." },
-      { t: "Push the extra pawn straight on", eff: 1, why: "It walks until it reaches his bishop's color, then stands blockaded until the end of time." },
-      { t: "Attack his bishop", eff: 1, why: "Bishops on open boards simply step away. You cannot arrest the goalkeeper." }
-    ] },
-  { id: "fianchetto", deck: 2, title: "The Fianchetto Fortress",
-    pieces: [["g1", "wK"], ["e3", "wB"], ["d2", "wQ"], ["f3", "wN"], ["e1", "wR"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h4", "wP"], ["g8", "bK"], ["g7", "bB"], ["f7", "bP"], ["g6", "bP"], ["h7", "bP"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["f6", "bN"], ["f8", "bR"], ["a8", "bR"], ["d7", "bQ"]], spots: ["g7", "h6", "f6"], sit: "His king hides behind a fianchetto: bishop tucked on the long diagonal, pawns curled around it.",
-    principle: "Kill the guard, use his squares", deep: "The fianchetto bishop is the soul of that castle: it guards every dark hole the pawn curl creates. Trade it off, and h6 and f6 stop being walls and become doorways.",
-    protocol: [
-      { k: "NOTICE", t: "His king's shelter has one load-bearing wall: the fianchettoed bishop. My eyes go straight to it, because a fortress is exactly as strong as its keystone." },
-      { k: "CANDIDATES", t: "Trade off that bishop, lever the pawn curl with my edge pawn, or sacrifice into it immediately. The instant sacrifice fails the preparation test: intact guards refute donations." },
-      { k: "COMPARE", t: "Sequencing by dependency: with the guard alive, the dark squares are walls; with it gone, they are doorways. Every follow-up plan I own gets cheaper after the trade, so the trade goes first." },
-      { k: "VERIFY", t: "I price his refusal: dodging my exchange offer usually misplaces his bishop or loosens the curl anyway. Offers the opponent cannot decline profitably are the best offers in chess." },
-    ],
-    cog: "Finding the keystone is causal reasoning about structure: not 'what is strong' but 'what everything else depends on'. Experts prune attacking trees by dependency, striking the node with the most downstream children first.",
-    options: [
-      { t: "Trade off the fianchetto bishop", eff: 3, why: "Remove the keeper and the dark squares around his king rot. Every invasion after that walks through open doors." },
-      { t: "Storm with your edge pawn", eff: 2, why: "The classic lever: march the h-pawn to pry the curl open. Strongest with queens still on the board." },
-      { t: "Sacrifice on the curl at once", eff: 1, why: "Unprepared sacrifices against intact fortresses are donations. Kill the guard first." },
-      { t: "Check along the other diagonal", eff: 1, why: "Wrong color entirely. His fortress never even notices." }
-    ] },
-  { id: "devlead", deck: 2, title: "The Development Lead",
-    pieces: [["g1", "wK"], ["f1", "wR"], ["a1", "wR"], ["f3", "wN"], ["c3", "wN"], ["c4", "wB"], ["c1", "wB"], ["d1", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["a8", "bR"], ["h8", "bR"], ["g8", "bN"], ["c6", "bN"], ["c8", "bB"], ["f8", "bB"], ["d8", "bQ"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d7", "bP"], ["e5", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e8", "d4"], sit: "You are three developing moves ahead, and his king still stands in the center, uncastled.",
-    principle: "Open lines while he sleeps", deep: "A lead in development melts a little every move, so it must be spent, not saved. Morphy's whole career was this one idea: open the center against an uncastled king and arrive with everything.",
-    protocol: [
-      { k: "NOTICE", t: "I count developed pieces like a clock: mine four, his one, king in the center. A development lead is perishable goods, and the sell-by date is the move he castles." },
-      { k: "CANDIDATES", t: "Open the center now, freeze his king in place first, or bank a pawn. Banking converts a melting asset into a snack, which evicts it from the list instantly." },
-      { k: "COMPARE", t: "The lead's exchange rate: against a centered king, open lines outprice material, which is why the classical masters shed pawns for files without blinking. Three tempos of lead buys one forced crisis. I spend it now." },
-      { k: "VERIFY", t: "Before opening anything I confirm the doors swing toward HIS king and not mine: symmetry cuts both ways. If a file would open onto my own uncastled squares, I castle first and spend the lead one move later." },
-    ],
-    cog: "Advantages spoil, and the expert treats them that way: act at the peak. De Groot's interviews catch masters saying exactly this urgency out loud, while amateurs describe the same position as static.",
-    options: [
-      { t: "Open the center now", eff: 3, why: "Files and diagonals toward a stuck king are worth more than material. Spend the lead before it evaporates." },
-      { t: "Prevent his castling first", eff: 2, why: "Prophylaxis with teeth: keep the king stuck, then open the lines. A patient cousin of the main idea." },
-      { t: "Grab a pawn", eff: 1, why: "You are spending a crown on a snack. The lead buys attacks, not groceries." },
-      { t: "Keep developing quietly", eff: 1, why: "You are already dressed and he is still waking up. More grooming just gives him time." }
-    ],
-    follow: { sit: "The center burst open, exactly on schedule. His king stands on its home square with bare files all around it.", pieces: [["g1", "wK"], ["f1", "wR"], ["a1", "wR"], ["f3", "wN"], ["c3", "wN"], ["c4", "wB"], ["c1", "wB"], ["d1", "wQ"], ["a2", "wP"], ["b2", "wP"], ["c2", "wP"], ["d2", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["e8", "bK"], ["a8", "bR"], ["h8", "bR"], ["g8", "bN"], ["c6", "bN"], ["c8", "bB"], ["f8", "bB"], ["d8", "bQ"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d7", "bP"], ["f7", "bP"], ["g7", "bP"], ["h7", "bP"]], spots: ["e8", "e1", "e5"],
-      options: [
-        { t: "Pile everything toward his king", eff: 3, why: "Every piece points at the stuck king. This is where development leads go to become checkmates." },
-        { t: "Sacrifice a pawn for one more line", eff: 2, why: "Morphy's own habit. Against a centered king, open lines outprice pawns every day of the week." },
-        { t: "Trade queens", eff: 1, why: "The stuck king's best friend is the queen trade. Never do the defense's job for it." }
-      ] } }
-];
 const SANDBOX_PRESETS = [
   { id: "game", name: "A real game", desc: "Full board against the engine. Take-backs allowed, hints free, nobody keeping score.", pieces: "start", opts: { castling: { K: true, Q: true, k: true, q: true } } },
   { id: "qend", name: "Queen endgame", desc: "King and queen against a bare king. Box, march, mate.", pieces: [["e1","wK"],["d1","wQ"],["e8","bK"]] },
@@ -2714,202 +2340,6 @@ const Phrasebook = ({ onExit }) => (
       ))}
     </div>
 );
-
-function SalonBoard({ pieces, spots }) {
-  const st = useMemo(() => mkState(pieces, {}), [pieces]);
-  const glow = useMemo(() => new Set((spots || []).map((n) => sq(n))), [spots]);
-  return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 10 }}>
-      <Board board={st.board} cell={30} onSquare={() => {}} glow={glow.size ? glow : undefined} last={null} />
-      {glow.size > 0 && (
-        <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 11, color: T.onMute, marginTop: 5 }}>
-          The lit squares are what this argument is about.
-        </div>
-      )}
-    </div>
-  );
-}
-
-function SalonRun({ onExit, onDone }) {
-  const [deck, setDeck] = useState(null);
-  const [seed, setSeed] = useState(0);
-  const rounds = useMemo(() => {
-    if (!deck) return [];
-    const pool = SALON.filter((s) => s.deck === deck);
-    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
-    return pool.slice(0, 6).map((s) => {
-      const shuf = (arr) => {
-        const o = arr.map((x) => x);
-        for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = o[i]; o[i] = o[j]; o[j] = t; }
-        return o;
-      };
-      return { s, opts: shuf(s.options), fopts: s.follow ? shuf(s.follow.options) : null };
-    });
-  }, [deck, seed]);
-  const maxScore = useMemo(() => rounds.reduce((n, r) => n + 2 + (r.s.follow ? 2 : 0), 0), [rounds]);
-  const [idx, setIdx] = useState(0);
-  const [stage, setStage] = useState("main");
-  const [chosen, setChosen] = useState(null);
-  const [fchosen, setFchosen] = useState(null);
-  const [score, setScore] = useState(0);
-  const [brill, setBrill] = useState(0);
-  const [ended, setEnded] = useState(false);
-  const doneRef = useRef(false);
-  const EFFTAG = { 3: { w: "MASTERSTROKE", c: T.beigeInk }, 2: { w: "SOUND", c: T.blueInk }, 1: { w: "DUBIOUS", c: T.roseDeep } };
-  const PICKLINE = {
-    3: ["Masterstroke. That is the exact argument.", "Yes. Say it that confidently at a real board.", "Perfect. You did not guess. I could tell."],
-    2: ["Sound. Not the sharpest card, but sound.", "Playable. A master would nudge you one card over.", "Decent. You would survive. Surviving is underrated."],
-    1: ["Have a read of the masterstroke's why.", "That one drops the thread. Look at what beats it.", "Dubious, and the table noticed. Worth another look."]
-  };
-  useEffect(() => {
-    if (ended && !doneRef.current) { doneRef.current = true; onDone && onDone(score, maxScore); }
-  }, [ended]);
-  const scoreFor = (eff) => (eff === 3 ? 2 : eff === 2 ? 1 : 0);
-  const applyPick = (eff) => {
-    setScore((x) => x + scoreFor(eff));
-    if (eff === 3) { setBrill((b) => b + 1); SFX.good(); } else if (eff === 2) SFX.chime(); else SFX.bad();
-  };
-  if (!deck) {
-    return (
-      <div style={{ maxWidth: 560, margin: "0 auto" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Back</Btn>
-          <div style={{ fontFamily: T.mono, fontSize: 12.5, letterSpacing: 0.5, color: T.beige }}>THE MIDNIGHT SALON</div>
-          <div style={{ width: 64 }} />
-        </div>
-        <div style={{ textAlign: "center", fontFamily: T.serif, fontStyle: "italic", color: T.onMute, fontSize: 14, marginBottom: 16 }}>
-          An old club tradition. No boards, no clocks: strategy against strategy, argued until one side runs out of reasons. Pick your table.
-        </div>
-        <div style={{ display: "grid", gap: 10 }}>
-          <div className="tp-press paper" onClick={() => { setDeck(1); setSeed((x) => x + 1); SFX.chime(); }}
-            style={{ cursor: "pointer", borderRadius: 12, padding: "14px 16px", border: "1px solid " + T.blueLine, background: T.well }}>
-            <div style={{ fontFamily: T.mono, color: T.blue, fontSize: 14, letterSpacing: 0.5 }}>THE FIRST TABLE</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>The fundamentals: storms and open files, plus what a free pawn really costs. Several arguments push back after your first answer.</div>
-          </div>
-          <div className="tp-press paper" onClick={() => { setDeck(2); setSeed((x) => x + 1); SFX.chime(); }}
-            style={{ cursor: "pointer", borderRadius: 12, padding: "14px 16px", border: "1px solid " + T.blueLine, background: T.well }}>
-            <div style={{ fontFamily: T.mono, color: T.blueSoft, fontSize: 14, letterSpacing: 0.5 }}>THE DEEP TABLE</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>The subtler laws. Weak squares, bad bishops. And the question of when a queen should leave the room.</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  if (ended) {
-    const line = score === maxScore
-      ? "A perfect salon. Every argument, the sharpest card. I have chalk older than most players who can do that."
-      : score >= maxScore * 0.7
-        ? "A strong evening. You are starting to hear WHY moves work, which is worth more than the moves."
-        : "A rough salon, which is the useful kind. Every masterstroke you missed tonight is a game you will win later.";
-    return (
-      <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center", padding: "36px 8px" }}>
-        <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 17, letterSpacing: 0.5, margin: "14px 0 8px" }}>THE SALON CLOSES</div>
-        <div style={{ fontFamily: T.mono, color: T.paper, fontSize: 14, letterSpacing: 0.5, marginBottom: 8 }}>INSIGHT: {score} / {maxScore} - MASTERSTROKES: {brill}</div>
-        <div style={{ fontFamily: T.serif, color: T.paper, fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>{line}</div>
-        <div style={{ textAlign: "left", margin: "0 auto 18px", maxWidth: 420 }}>
-          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 6, textAlign: "center" }}>PRINCIPLES ARGUED TONIGHT</div>
-          {rounds.map((r, i) => (
-            <div key={i} style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onBody, padding: "3px 0" }}>{r.s.principle}</div>
-          ))}
-        </div>
-        <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
-          <Btn kind="ghost" onClick={() => { setDeck(null); setIdx(0); setStage("main"); setChosen(null); setFchosen(null); setScore(0); setBrill(0); setEnded(false); doneRef.current = false; }}>Another table</Btn>
-          <Btn kind="prime" onClick={onExit}>Return to the club</Btn>
-        </div>
-      </div>
-    );
-  }
-  const { s, opts, fopts } = rounds[idx];
-  const inFollow = stage === "follow";
-  const activeOpts = inFollow ? fopts : opts;
-  const activeChosen = inFollow ? fchosen : chosen;
-  const pick = (k) => {
-    if (activeChosen != null) return;
-    if (inFollow) setFchosen(k); else setChosen(k);
-    applyPick(activeOpts[k].eff);
-  };
-  const advance = () => {
-    SFX.move();
-    if (!inFollow && s.follow) { setStage("follow"); return; }
-    if (idx + 1 >= rounds.length) { setEnded(true); return; }
-    setIdx(idx + 1); setStage("main"); setChosen(null); setFchosen(null);
-  };
-  return (
-    <div style={{ maxWidth: 560, margin: "0 auto" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <Btn kind="ghost" onClick={onExit} style={{ fontSize: 12.5, padding: "6px 12px" }}>Leave</Btn>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige }}>THE MIDNIGHT SALON - {idx + 1} OF {rounds.length}</div>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.onMute, width: 70, textAlign: "right" }}>{score}</div>
-      </div>
-      <div key={stage + idx} style={{ animation: "tp-fade .3s both", borderRadius: 16, padding: "14px 16px", marginBottom: 12,
-        background: inFollow ? T.duskWarm : T.duskCool,
-        border: "1px solid " + (inFollow ? T.roseLine : T.blueLine) }}>
-        <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: inFollow ? T.rose : T.blue, marginBottom: 4 }}>
-          {inFollow ? "THE TABLE PRESSES" : "THE TABLE PLAYS: " + s.title.toUpperCase()}
-        </div>
-        <div style={{ fontFamily: T.serif, fontSize: 14, lineHeight: 1.6, color: T.paper }}>{inFollow ? s.follow.sit : s.sit}</div>
-        <SalonBoard pieces={inFollow ? (s.follow.pieces || s.pieces) : s.pieces} spots={inFollow ? (s.follow.spots || []) : (s.spots || [])} />
-      </div>
-      <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 12.5, color: T.onMute, textAlign: "center", marginBottom: 10 }}>
-        {activeChosen == null ? (inFollow ? "The argument continues. Answer it." : "Lay your answer on the velvet.") : PICKLINE[activeOpts[activeChosen].eff][(idx + (inFollow ? 1 : 0)) % 3]}
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-        {activeOpts.map((o, k) => {
-          const revealed = activeChosen != null;
-          const isPick = activeChosen === k;
-          const tag = EFFTAG[o.eff];
-          return (
-            <div key={stage + k} className="tp-press paper" onClick={() => pick(k)}
-              style={{ cursor: activeChosen == null ? "pointer" : "default", borderRadius: 12, padding: "10px 12px",
-                background: revealed && o.eff === 3 ? T.paperBeige : T.paperCard,
-                border: "1.5px solid " + (isPick ? T.beigeInk : revealed ? tag.c + "88" : T.inkLine),
-                opacity: revealed && !isPick && o.eff === 1 ? 0.75 : 1, transition: "all .25s" }}>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.ink, lineHeight: 1.4 }}>{o.t}</div>
-              {revealed && (
-                <div style={{ animation: "tp-fade .35s both" }}>
-                  <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: tag.c, margin: "5px 0 3px" }}>
-                    {tag.w}
-                  </div>
-                  <div style={{ fontFamily: T.serif, fontSize: 11, lineHeight: 1.4, color: T.inkSoft }}>{o.why}</div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-      {activeChosen != null && !inFollow && (
-        <div style={{ marginTop: 12, borderRadius: 12, padding: "10px 14px", border: "1px solid " + T.beigeLine,
-          background: T.beigeWash, animation: "tp-fade .4s both" }}>
-          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beige, marginBottom: 3 }}>THE PRINCIPLE - {s.principle.toUpperCase()}</div>
-          <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.paper }}>{s.deep}</div>
-        </div>
-      )}
-      {activeChosen != null && !inFollow && (
-        <div style={{ marginTop: 10, borderRadius: 12, padding: "12px 14px", border: "1px solid " + T.blueLine,
-          background: T.wellDeep, animation: "tp-fade .45s both" }}>
-          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blue, marginBottom: 8 }}>HOW HE THINKS IT THROUGH</div>
-          {s.protocol.map((p, i) => (
-            <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7, animation: "tp-fade .4s both", animationDelay: (0.2 + i * 0.45) + "s", opacity: 0 }}>
-              <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.blue, minWidth: 78, paddingTop: 2 }}>{p.k}</div>
-              <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.paper, fontStyle: "italic" }}>{p.t}</div>
-            </div>
-          ))}
-          <div style={{ marginTop: 9, paddingTop: 9, borderTop: "1px solid " + T.blueEdge, animation: "tp-fade .4s both", animationDelay: (0.2 + s.protocol.length * 0.45) + "s", opacity: 0 }}>
-            <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 0.5, color: T.blueSoft, marginBottom: 3 }}>WHY MINDS DO THIS</div>
-            <div style={{ fontFamily: T.serif, fontSize: 12.5, lineHeight: 1.6, color: T.onHi }}>{s.cog}</div>
-          </div>
-        </div>
-      )}
-      {activeChosen != null && (
-        <div style={{ textAlign: "center", marginTop: 14 }}>
-          <Btn kind="prime" onClick={advance}>
-            {!inFollow && s.follow ? "He presses on" : idx + 1 >= rounds.length ? "Close the salon" : "Next argument"} 
-          </Btn>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function Sandbox({ cell, onExit, onReward }) {
   const [preset, setPreset] = useState(null);
@@ -3134,7 +2564,7 @@ function RadarChart({ axes }) {
   );
 }
 
-function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, onPull, onPhrasebook }) {
+function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, onPhrasebook }) {
   const [tab, setTab] = useState("notebook");
   const [codex, setCodex] = useState(null);
   const units = unitsOf(ledger);
@@ -3252,17 +2682,6 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
         </div>
       )}
       {tab === "trials" && (
-        <div className="tp-press" onClick={onSalon}
-          style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 18,
-            border: "1px solid " + T.beigeLine, background: T.well,
-            display: "flex", alignItems: "center", gap: 12 }}>
-          <div>
-            <div style={{ fontFamily: T.mono, color: T.blueSoft, fontSize: 12.5, letterSpacing: 0.5 }}>THE MIDNIGHT SALON</div>
-            <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>Strategy against strategy, cards on the velvet. Every card argues its own why.</div>
-          </div>
-        </div>
-      )}
-      {tab === "trials" && (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {BOSSES.map((b) => {
             const done = !!ledger.bosses[b.id];
@@ -3321,7 +2740,6 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
           { label: "TACTICS", v: chDone(3) / chAll(3) },
           { label: "ENDINGS", v: chDone(4) / chAll(4) },
           { label: "PRECISION", v: precision },
-          { label: "STRATEGY", v: ledger.salonBest || 0 },
           { label: "CULTURE", v: Object.keys(ledger.cards || {}).length / CARDS.length }
         ];
         const stat = (label, val, wide) => (
@@ -3342,11 +2760,10 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
               {stat("CLUB NIGHTS", nights + " / 4")}
               {stat("CHIPS", "" + (ledger.chips || 0))}
               {stat("CABINET", Object.keys(ledger.cards || {}).length + " / " + CARDS.length)}
-              {stat("SALON BEST", Math.round((ledger.salonBest || 0) * 100) + "%")}
               {stat("HONORS", Object.keys(ledger.ach || {}).length)}
             </div>
             <div style={{ fontFamily: T.serif, fontStyle: "italic", fontSize: 12.5, color: T.onMute, textAlign: "center", marginTop: 12 }}>
-              Precision is your average mark per page. Strategy is your best salon. The shape tells you where to spend your next evening.
+              Precision is your average mark per page. The shape tells you where to spend your next evening.
             </div>
           </div>
         );
@@ -3390,7 +2807,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
 /* APP */
 export default function App() {
   const [screen, setScreen] = useState({ name: "hub" });
-  const [ledger, setLedger] = useState({ done: {}, bosses: {}, trialDone: false, chips: 60, cards: {}, ach: {}, salonBest: 0 });
+  const [ledger, setLedger] = useState({ done: {}, bosses: {}, trialDone: false, chips: 60, cards: {}, ach: {} });
   useEffect(() => {
     try { const raw = localStorage.getItem("tempo-save"); if (raw) setLedger((old) => Object.assign({}, old, JSON.parse(raw))); } catch { /* no storage, or a save we cannot read: start fresh */ }
   }, []);
@@ -3491,18 +2908,10 @@ export default function App() {
       onTrial={startTrial}
       onDrill={() => setScreen({ name: "drill" })}
       onSandbox={() => setScreen({ name: "sandbox" })}
-      onSalon={() => setScreen({ name: "salon" })}
       onPhrasebook={() => { setScreen({ name: "phrasebook" }); pinHonor("lingo", "Honors board: Speaks the Language", 15); }}
       onPull={doPull} />;
   } else if (screen.name === "phrasebook") {
     body = <Phrasebook onExit={() => setScreen({ name: "hub" })} />;
-  } else if (screen.name === "salon") {
-    body = <SalonRun onExit={() => setScreen({ name: "hub" })} onDone={(score, max) => {
-      setLedger((old) => Object.assign({}, old, { salonBest: Math.max(old.salonBest || 0, max > 0 ? score / max : 0) }));
-      gainChips(10 + score * 3, "salon night");
-      pinHonor("salon", "Honors board: Salon Debut", 25);
-      if (score === max) pinHonor("salonp", "Honors board: The Perfect Argument", 50);
-    }} />;
   } else if (screen.name === "sandbox") {
     body = <Sandbox cell={cell} onExit={() => setScreen({ name: "hub" })} onReward={gainChips} />;
   } else if (screen.name === "drill") {
@@ -3542,5 +2951,5 @@ export default function App() {
 export {
   sq, nameOf, mkState, boardFrom, startBoard, attacked, attacksFrom, kingIdx,
   inCheck, legalMoves, apply, statusOf, bestMove, answersFor, checkPredicate,
-  CHAPTERS, CONCEPTS, BOSSES, SALON, CARDS, SANDBOX_PRESETS, PHRASEBOOK, TOTAL_UNITS, T
+  CHAPTERS, CONCEPTS, BOSSES, CARDS, SANDBOX_PRESETS, PHRASEBOOK, TOTAL_UNITS, T
 };

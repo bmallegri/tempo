@@ -38,11 +38,9 @@ The Notebook: 18 concepts in four chapters, with margin notes, worked contexts, 
 
 Club Nights: four boss evenings, ending with the Long Game against the Automaton, a real depth-two engine.
 
-The Midnight Salon: strategy argued as a card game across two tables. Twenty situations on real diagrams. Pick a plan, get it rated Masterstroke, Sound, or Dubious, then read the principle and the four thinking steps behind it.
-
 The Back Table: a sandbox with take-backs, hints, and a gentle engine.
 
-Also in here: the Cold Drill, the Cabinet (24 cards of real chess history), the Phrasebook (how the regulars actually talk), and a profile ledger with a six-axis radar.
+Also in here: the Cold Drill, the Cabinet (24 cards of real chess history), the Phrasebook (how the regulars actually talk), and a profile ledger with a five-axis radar.
 
 ## Saves
 
@@ -58,11 +56,11 @@ localStorage.removeItem("tempo-save"); location.reload();
 - `src/main.jsx`: mounts it.
 - `test/`: the engine against the rules of chess, and every board in the course.
 
-The engine and the content are named exports, so the tests read the real thing rather than a copy. `npm test` will tell you if a position is illegal, if an exercise has no solution, or if a salon argument lost its masterstroke.
+The engine and the content are named exports, so the tests read the real thing rather than a copy. `npm test` will tell you if a position is illegal, if an exercise has no solution, or if a page lost a hook or a setting.
 
 ## Planned
 
-Nothing on a schedule. If I come back to it: a fifth chapter on openings, and more salon tables.
+The Midnight Salon, strategy argued as a card game, is written and held for the second release. After that, a fifth chapter on openings.
 
 ## License
 

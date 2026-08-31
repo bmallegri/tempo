@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   sq, nameOf, mkState, legalMoves, apply, statusOf, bestMove,
   answersFor, checkPredicate,
-  CHAPTERS, CONCEPTS, BOSSES, SALON, CARDS, SANDBOX_PRESETS, PHRASEBOOK, TOTAL_UNITS,
+  CHAPTERS, CONCEPTS, BOSSES, CARDS, SANDBOX_PRESETS, PHRASEBOOK, TOTAL_UNITS,
 } from "../src/Tempo.jsx";
 
 const FILES = "abcdefgh";
@@ -25,7 +25,6 @@ for (const b of BOSSES) {
     exercises.push({ where, ex: ph.ex });
   });
 }
-for (const s of SALON) positions.push({ where: `salon - ${s.id}`, pieces: s.pieces });
 for (const p of SANDBOX_PRESETS) positions.push({ where: `sandbox - ${p.id}`, pieces: p.pieces, opts: p.opts });
 
 describe("every position on a board is a legal one", () => {
@@ -122,33 +121,6 @@ describe("the notebook", () => {
       for (const n of b.needs) expect(ids.has(n), `${b.id} needs missing page "${n}"`).toBe(true);
       expect(b.intro.length && b.outro.length && b.phases.length, b.id).toBeTruthy();
       expect(b.vision.caption, `${b.id} vision`).toBeTruthy();
-    }
-  });
-});
-
-describe("the salon", () => {
-  it("deals six situations to each table", () => {
-    for (const deck of [1, 2]) expect(SALON.filter((s) => s.deck === deck).length).toBeGreaterThanOrEqual(6);
-  });
-  it("gives every argument exactly one masterstroke, and a why on every card", () => {
-    const check = (opts, where) => {
-      expect(opts.filter((o) => o.eff === 3).length, `${where} masterstrokes`).toBe(1);
-      opts.forEach((o, i) => {
-        expect([1, 2, 3]).toContain(o.eff);
-        expect(o.t && o.why, `${where} card ${i + 1}`).toBeTruthy();
-      });
-    };
-    for (const s of SALON) {
-      check(s.options, s.id);
-      expect(s.principle && s.deep && s.cog, `${s.id} prose`).toBeTruthy();
-      expect(s.protocol.length, `${s.id} protocol`).toBeGreaterThan(0);
-      if (s.follow) check(s.follow.options, `${s.id} follow-up`);
-    }
-  });
-  it("lights only real squares", () => {
-    for (const s of SALON) {
-      for (const t of s.spots || []) expect(square(t), `${s.id} spot ${t}`).toBe(true);
-      for (const t of (s.follow && s.follow.spots) || []) expect(square(t), `${s.id} follow spot ${t}`).toBe(true);
     }
   });
 });
