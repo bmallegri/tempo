@@ -286,7 +286,7 @@ function san(state, m, captured) {
   if (m.castle) return m.castle === "K" ? "O-O" : "O-O-O";
   return GLYPH[p.t] + " " + nameOf(m.from) + (captured ? "\u00D7" : "-") + nameOf(m.to) + (m.promo ? "=\u265B" : "");
 }
-function apply(state, m) {
+function applyRaw(state, m) {
   const b = state.board.slice();
   const p = b[m.from];
   const enemy = p.c === "w" ? "b" : "w";
@@ -311,9 +311,15 @@ function apply(state, m) {
     board: b, turn: enemy, castling: cr,
     ep: m.dbl ? (m.from + m.to) / 2 : null,
     half: (p.t === "p" || captured) ? 0 : state.half + 1,
-    caps, hist: state.hist.concat([san(state, m, captured)]),
+    caps, hist: state.hist, captured,
     last: [m.from, m.to]
   };
+}
+/* the same move with the scoresheet line written. Everything the player sees
+   goes through here; the search uses applyRaw and skips the writing. */
+function apply(state, m) {
+  const next = applyRaw(state, m);
+  return Object.assign({}, next, { hist: state.hist.concat([san(state, m, next.captured)]) });
 }
 function legalMoves(state) {
   const out = [];
@@ -321,7 +327,7 @@ function legalMoves(state) {
     const p = state.board[i];
     if (!p || p.c !== state.turn) continue;
     for (const m of pseudo(state, i)) {
-      if (!inCheck(apply(state, m), state.turn)) out.push(m);
+      if (!inCheck(applyRaw(state, m), state.turn)) out.push(m);
     }
   }
   return out;
@@ -357,7 +363,7 @@ function nega(st, depth) {
   if (depth === 0) { const e = evalB(st.board); return st.turn === "w" ? e : -e; }
   let best = -Infinity;
   for (const m of ms) {
-    const sc = -nega(apply(st, m), depth - 1);
+    const sc = -nega(applyRaw(st, m), depth - 1);
     if (sc > best) best = sc;
   }
   return best;
@@ -366,7 +372,7 @@ function bestMove(state, depth) {
   const d = depth || 2;
   const ms = legalMoves(state);
   if (ms.length === 0) return null;
-  let scored = ms.map((m) => ({ m, s: -nega(apply(state, m), d - 1) + Math.random() * 8 }));
+  let scored = ms.map((m) => ({ m, s: -nega(applyRaw(state, m), d - 1) + Math.random() * 8 }));
   scored.sort((a, b) => b.s - a.s);
   return scored[0].m;
 }
