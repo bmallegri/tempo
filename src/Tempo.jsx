@@ -1291,8 +1291,7 @@ function TypeText({ text }) {
 function SpeakerLine({ line }) {
   const isC = line.s === "c";
   return (
-    <div style={{ display: "flex", gap: 12, alignItems: "flex-start", animation: "tp-fade .5s both" }}>
-      
+    <div style={{ display: "flex", alignItems: "flex-start", animation: "tp-fade .5s both" }}>
       <div style={{
         background: isC ? T.paper : "transparent",
         color: isC ? T.ink : T.onHi,
@@ -1868,8 +1867,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
       <div style={{ maxWidth: 620, margin: "0 auto", padding: "24px 14px" }}>
         {header}
         <Card style={{ borderColor: T.beigeInk }}>
-          <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 8 }}>
-            
+          <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
             <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES · THE REAL WORLD</div>
           </div>
           <div style={{ fontSize: 16, lineHeight: 1.6 }}>{concept.dues}</div>
@@ -3130,8 +3128,7 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
         <div onClick={onDrill}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 20,
             border: "1px solid " + T.beigeLine, background: T.well,
-            display: "flex", alignItems: "center", gap: 12 }}>
-          
+            display: "flex", alignItems: "center" }}>
           <div>
             <div style={{ fontFamily: T.mono, color: T.beige, fontSize: 12.5, letterSpacing: 0.5 }}>THE COLD DRILL</div>
             <div style={{ fontFamily: T.serif, color: T.onBody, fontSize: 12.5 }}>Five shuffled exercises from pages you already own. Memory is a muscle. Surprise it.</div>
@@ -3250,10 +3247,8 @@ function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSa
           <div style={{
             background: ledger.trialDone ? T.paperBeige : T.wellDeep,
             border: "2px solid " + (ledger.trialDone ? T.blueDeep : trialReady ? T.beigeDeep : T.onGhost),
-            borderRadius: 12, padding: 16, textAlign: "center",
-            animation: "none"
+            borderRadius: 12, padding: 16, textAlign: "center"
           }}>
-            
             <div style={{ fontFamily: T.mono, fontSize: 17, letterSpacing: 0.5, color: ledger.trialDone ? T.ink : T.paper, margin: "4px 0" }}>THE LONG GAME</div>
             <div style={{ fontFamily: T.serif, fontSize: 12.5, fontStyle: "italic", color: ledger.trialDone ? T.inkSoft : T.onMute, maxWidth: 440, margin: "0 auto 10px" }}>
               {ledger.trialDone
