@@ -1,6 +1,6 @@
 # Tempo
 
-![Tempo, the notebook open on a live board](screenshot.png)
+![Tempo, the notebook open on a live board](docs/screenshot.png)
 
 An interactive chess course in one React file. Live at [bmallegri.github.io/tempo](https://bmallegri.github.io/tempo/).
 
@@ -10,11 +10,11 @@ In chess, a tempo is the smallest unit of time: a single move. Gain one and your
 
 ## Stack
 
-React 18 in one JSX file, no dependencies beyond react and react-dom; Lora and IBM Plex Mono; Vite builds it and GitHub Actions deploys to Pages.
+React 18 in one JSX file, no dependencies beyond react and react-dom; Lora and IBM Plex Mono; Vite builds it, Vitest and ESLint check it, and GitHub Actions deploys to Pages.
 
 ## Run it locally
 
-Needs Node.js 18 or newer and npm.
+Needs Node 20 or newer and npm.
 
 ```bash
 git clone https://github.com/bmallegri/tempo
@@ -23,7 +23,14 @@ npm install
 npm run dev
 ```
 
-Open the printed local URL (usually http://localhost:5173).
+Open the printed local URL (usually http://localhost:5173). The other scripts:
+
+```bash
+npm test      # the chess rules, and every position in the course
+npm run lint  # eslint
+npm run build # production build into dist/
+npm run preview  # serve the built site
+```
 
 ## What's inside
 
@@ -45,14 +52,13 @@ Progress saves to localStorage under `tempo-save`. Fresh start:
 localStorage.removeItem("tempo-save"); location.reload();
 ```
 
-## Design notes
-
-Design notes live in `design-history.md`: how it is put together, and why it looks the way it does.
-
 ## Layout
 
 - `src/Tempo.jsx`: the entire game in one file: engine, content, interface.
 - `src/main.jsx`: mounts it.
+- `test/`: the engine against the rules of chess, and every board in the course.
+
+The engine and the content are named exports, so the tests read the real thing rather than a copy. `npm test` will tell you if a position is illegal, if an exercise has no solution, or if a salon argument lost its masterstroke.
 
 ## Planned
 
@@ -60,4 +66,6 @@ Nothing on a schedule. If I come back to it: a fifth chapter on openings, and mo
 
 ## License
 
-Code released under the [MIT License](LICENSE).
+MIT. See [LICENSE](LICENSE).
+
+`design-history.md` is the longer version: how it is put together, and why it looks the way it does.
