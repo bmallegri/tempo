@@ -3255,7 +3255,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
                 : "A full game of chess against the Pale Automaton itself, every page, every law, one board. The finished thing all of this builds: you, playing."}
             </div>
             {ledger.trialDone ? (
-              <Btn kind="soft" onClick={onTrial} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep, background: T.beigeWash }}>Play it again</Btn>
+              <Btn kind="ghost" onClick={onTrial} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep, background: T.beigeWash }}>Play it again</Btn>
             ) : (
               <Btn kind={trialReady ? "prime" : "ghost"} disabled={!trialReady} onClick={onTrial}>
                 {trialReady ? "Wake the Automaton" : "Every page and trial must burn first"}
@@ -3332,7 +3332,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
             <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.beigeInk, fontWeight: 600 }}>CLUB DUES</div>
             <div style={{ fontSize: 14, marginBottom: 12 }}>{codex.dues}</div>
             <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-              <Btn kind="soft" onClick={() => { const c = codex; setCodex(null); onLesson(c); }} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep }}>
+              <Btn kind="ghost" onClick={() => { const c = codex; setCodex(null); onLesson(c); }} style={{ fontSize: 12.5, color: T.ink, borderColor: T.beigeDeep }}>
                 Replay
               </Btn>
             </div>
