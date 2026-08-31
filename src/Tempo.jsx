@@ -1356,6 +1356,15 @@ function Cutscene({ lines, onDone, doneLabel }) {
     </div>
   );
 }
+/* a scoresheet reads "1. e4 e5", one number for the pair */
+function movePairs(hist) {
+  const rows = [];
+  for (let i = 0; i < hist.length; i += 2) {
+    rows.push({ n: i / 2 + 1, w: hist[i], b: hist[i + 1] || "" });
+  }
+  return rows;
+}
+
 /* ---------------- the Board ---------------- */
 function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last, dim, checkSq }) {
   const c = cell || 42;
@@ -2126,7 +2135,9 @@ function Trial({ cell, onEnd, onExit }) {
           </div>
           <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onBody, lineHeight: 1.6 }}>
             {st.hist.length === 0 ? <em>No moves yet. The whole game is unwritten.</em> :
-              st.hist.slice(-8).map((h, i) => <div key={i}>{st.hist.length - Math.min(8, st.hist.length) + i + 1}. {h}</div>)}
+              movePairs(st.hist).slice(-6).map((r) => (
+                <div key={r.n} style={{ fontFamily: T.mono, fontSize: 12.5 }}>{r.n}. {r.w} {r.b}</div>
+              ))}
           </div>
         </div>
       </div>
@@ -3026,7 +3037,7 @@ function Sandbox({ cell, onExit, onReward }) {
       )}
       {st.hist.length > 0 && (
         <div style={{ fontFamily: T.serif, fontSize: 12.5, color: T.onMute, marginTop: 10, lineHeight: 1.6, textAlign: "center" }}>
-          {st.hist.join("  ")}
+          {movePairs(st.hist).map((r) => r.n + ". " + r.w + " " + r.b).join("   ")}
         </div>
       )}
     </div>
