@@ -1,11 +1,31 @@
-node_modules
-dist
+# dependencies
+node_modules/
+
+# build output
+dist/
+dist-ssr/
+
+# environment
 .env
 .env.*
-.vscode
-.idea
+!.env.example
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# logs and caches
 *.log
 npm-debug.log*
-test-src.jsx
+yarn-debug.log*
+pnpm-debug.log*
+coverage/
+.vite/
+*.local
