@@ -3370,6 +3370,7 @@ export default function App() {
   const pinHonor = (id, name, bonus) => {
     if (honorPinned.current.has(id)) return;
     honorPinned.current.add(id);
+    if (ledger.ach && ledger.ach[id]) return;
     setLedger((old) => old.ach && old.ach[id] ? old : Object.assign({}, old, { ach: Object.assign({}, old.ach, { [id]: true }), chips: (old.chips || 0) + bonus }));
     SFX.good();
     toast(name + " \u00b7 +" + bonus + " chips");
