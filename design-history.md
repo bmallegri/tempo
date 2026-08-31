@@ -12,7 +12,7 @@ Two non-text marks in the whole interface: the pieces and a lock. No gradients. 
 
 ## What it is made of
 
-Two voices. Lora explains and IBM Plex Mono reports, so prose sits in the serif and every label, count and readout sits in the mono. One emphasis weight across both, and only weights that are actually loaded. Two reading measures: one for prose, a tighter one for anything compact.
+Two voices. Literata explains and IBM Plex Mono reports, so prose sits in the serif and every label, count and readout sits in the mono. One emphasis weight across both, and only weights that are actually loaded. Two reading measures: one for prose, a tighter one for anything compact. The serif was Lora first, and it was the wrong kind of good: its thick-to-thin is built for an article at full size, and almost every line here is small, italic and set light on a dark ground, where the thin strokes go to nothing. Literata was drawn for reading on a lit screen, so it holds its ink at twelve pixels and its italic is a real italic rather than a lean.
 
 Two accents on a dark blue ground. Light blue leads and carries the interface, the buttons and labels and structure, the house talking. Beige warms, and marks the things you earn. Rose is held back for a single meaning: wrong. The board is slate and beige so it belongs to the page rather than sitting on top of it.
 

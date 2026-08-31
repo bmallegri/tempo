@@ -91,7 +91,7 @@ const T = {
   sheenFaint: "rgba(255,255,255,0.06)",
 
   /* the two voices: serif explains, mono reports */
-  serif: "Lora, Palatino, 'Palatino Linotype', Georgia, serif",
+  serif: "Literata, Palatino, 'Palatino Linotype', Georgia, serif",
   mono: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
 };
 /* per-chapter accent colors, drawn from the families above */

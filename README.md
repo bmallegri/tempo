@@ -10,7 +10,7 @@ In chess, a tempo is the smallest unit of time: a single move. Gain one and your
 
 ## Stack
 
-React 18 in one JSX file, no dependencies beyond react and react-dom; Lora and IBM Plex Mono; Vite builds it, Vitest and ESLint check it, and GitHub Actions deploys to Pages.
+React 18 in one JSX file, no dependencies beyond react and react-dom; Literata and IBM Plex Mono; Vite builds it, Vitest and ESLint check it, and GitHub Actions deploys to Pages.
 
 ## Run it locally
 
