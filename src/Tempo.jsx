@@ -3420,7 +3420,8 @@ export default function App() {
     });
     setScreen({ name: "hub" });
   };
-  const startTrial = () => setScreen({ name: "trial" });
+  const [trialRun, setTrialRun] = useState(0);
+  const startTrial = () => { setTrialRun((n) => n + 1); setScreen({ name: "trial" }); };
   const endTrial = (result) => {
     if (result === "win") { pinHonor("slayer", "Honors board: The Automaton Falls", 60); gainChips(120, "the Long Game"); }
     else if (result === "draw") gainChips(50, "half a point off the machine");
@@ -3428,7 +3429,7 @@ export default function App() {
       setLedger((old) => Object.assign({}, old, { trialDone: true }));
       setScreen({ name: "hub" });
     } else {
-      setScreen({ name: "trial" });
+      startTrial();
     }
   };
 
@@ -3471,7 +3472,7 @@ export default function App() {
     body = <BossRun key={b.id} boss={b} cell={cell}
       onComplete={() => completeBoss(b)} onExit={() => setScreen({ name: "hub" })} />;
   } else if (screen.name === "trial") {
-    body = <Trial cell={cell} onEnd={endTrial} onExit={() => setScreen({ name: "hub" })} />;
+    body = <Trial key={trialRun} cell={cell} onEnd={endTrial} onExit={() => setScreen({ name: "hub" })} />;
   }
   return (
     <div style={bg}>
