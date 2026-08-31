@@ -1768,7 +1768,6 @@ function Lesson({ concept, cell, onComplete, onExit }) {
   const [ctxIdx, setCtxIdx] = useState(0);
   const [sub, setSub] = useState("study"); /* study | do */
   const [mistakes, setMistakes] = useState(0);
-  const [pledged, setPledged] = useState(false);
   const rankIdx = mistakes === 0 ? 2 : mistakes <= 2 ? 1 : 0;
   const ctx = concept.contexts[ctxIdx];
   const doneLine = useMemo(() => (phase === "done" ? pick(RANK_LINES[rankIdx]) : ""), [phase]);
@@ -1876,7 +1875,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
           </div>
         </Card>
         <div style={{ textAlign: "center", marginTop: 18, display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-          <Btn kind="prime" onClick={() => { setPledged(true); setPhase("done"); }}>Mark it done</Btn>
+          <Btn kind="prime" onClick={() => setPhase("done")}>Mark it done</Btn>
           <Btn kind="ghost" onClick={() => setPhase("done")}>Not tonight</Btn>
         </div>
       </div>
@@ -1902,7 +1901,7 @@ function Lesson({ concept, cell, onComplete, onExit }) {
         <FeedbackLine msg={doneLine} tone="good" />
       </div>
       <div style={{ marginTop: 8 }}>
-        <Btn kind="prime" onClick={() => onComplete(concept.id, rankIdx, pledged)}>Back to the club</Btn>
+        <Btn kind="prime" onClick={() => onComplete(concept.id, rankIdx)}>Back to the club</Btn>
       </div>
     </div>
   );
@@ -3091,7 +3090,7 @@ function RadarChart({ axes }) {
   );
 }
 
-function Hub({ ledger, cell, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, onPull, onPhrasebook }) {
+function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, onPull, onPhrasebook }) {
   const [tab, setTab] = useState("notebook");
   const [codex, setCodex] = useState(null);
   const units = unitsOf(ledger);
@@ -3396,7 +3395,7 @@ export default function App() {
     return () => window.removeEventListener("resize", fit);
   }, []);
 
-  const completeConcept = (id, rankIdx, pledged) => {
+  const completeConcept = (id, rankIdx) => {
     setLedger((old) => {
       const p = Object.assign({}, old, { done: Object.assign({}, old.done) });
       const isNew = p.done[id] === undefined;
@@ -3440,7 +3439,7 @@ export default function App() {
   };
   let body = null;
   if (screen.name === "hub") {
-    body = <Hub ledger={ledger} cell={cell}
+    body = <Hub ledger={ledger}
       onLesson={(c) => setScreen({ name: "lesson", id: c.id })}
       onBoss={(b) => setScreen({ name: "boss", id: b.id })}
       onTrial={startTrial}
