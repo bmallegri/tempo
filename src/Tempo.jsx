@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect, useRef, useMemo } from "react";
 
 const Lock = ({ size = 16, color = "currentColor" }) => (
