@@ -3315,7 +3315,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onSalon, o
                 <b style={{ fontSize: 16 }}>{codex.name}</b>
                 <RankCount n={ledger.done[codex.id]} size={14} />
               </div>
-              <button onClick={() => setCodex(null)} style={{ background: "none", border: "none", cursor: "pointer" }}></button>
+              <button onClick={() => setCodex(null)} aria-label="Close" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.inkSoft, padding: 4 }}>CLOSE</button>
             </div>
             <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 0.5, color: T.blueDeep, fontWeight: 600 }}>SAY IT PLAINLY</div>
             <div style={{ fontSize: 14, marginBottom: 8 }}>{codex.hook.plain}</div>
