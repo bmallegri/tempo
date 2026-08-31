@@ -1438,7 +1438,9 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
   }
   return (
     <div style={{
-      position: "relative", width: c * 8 + 22, margin: "0 auto", padding: 8,
+      /* the grid renders c*8 plus its own 2px border each side, so the frame
+         has to be exactly that wide for the padding to sit even */
+      position: "relative", width: c * 8 + 4, margin: "0 auto", padding: 8,
       background: T.duskUp,
       borderRadius: 12, border: "1px solid " + T.beigeLine,
       boxShadow: "inset 0 0 0 1px " + T.beigeEdge + ", inset 0 0 24px " + T.wellDeep
