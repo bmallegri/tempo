@@ -2490,7 +2490,7 @@ const SALON = [
         { t: "Chase the king with the rook alone", eff: 1, why: "One piece never mates a walking king. Herd it, do not chase it." }
       ] } },
   { id: "color", deck: 2, title: "The Weak Squares",
-    pieces: [["g1", "wK"], ["c4", "wB"], ["g5", "wN"], ["b3", "wQ"], ["e1", "wR"], ["a2", "wP"], ["b2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["g8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["f6", "bP"], ["g6", "bP"], ["h7", "bP"], ["e7", "bB"], ["f8", "bR"], ["a8", "bR"], ["d7", "bQ"]], spots: ["e6", "f7", "f5", "h5"], sit: "He traded away his light-squared bishop, and now the light squares around his king have no keeper.",
+    pieces: [["g1", "wK"], ["c4", "wB"], ["g5", "wN"], ["b3", "wQ"], ["e1", "wR"], ["a2", "wP"], ["b2", "wP"], ["e4", "wP"], ["f2", "wP"], ["g2", "wP"], ["h2", "wP"], ["h8", "bK"], ["a7", "bP"], ["b7", "bP"], ["c7", "bP"], ["d6", "bP"], ["f6", "bP"], ["g6", "bP"], ["h7", "bP"], ["e7", "bB"], ["f8", "bR"], ["a8", "bR"], ["d7", "bQ"]], spots: ["e6", "f7", "f5", "h5"], sit: "He traded away his light-squared bishop, and now the light squares around his king have no keeper.",
     principle: "Squares, not pieces", deep: "When a bishop leaves, every square of its color becomes a little orphaned. Pieces you park on those squares can never be challenged by their natural enemy again. Strong players attack squares first and pieces second.",
     protocol: [
       { k: "NOTICE", t: "His light-squared bishop left the board, and for a moment I stop seeing pieces and see colors: a lattice of light squares around his king with no natural keeper left alive." },
