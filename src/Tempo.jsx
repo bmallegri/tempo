@@ -3402,9 +3402,9 @@ export default function App() {
       const isNew = p.done[id] === undefined;
       p.done[id] = p.done[id] === undefined ? rankIdx : Math.max(p.done[id], rankIdx);
       p.chips = (p.chips || 0) + (isNew ? 30 + rankIdx * 5 : 10);
-      setScreen({ name: "hub" });
       return p;
     });
+    setScreen({ name: "hub" });
     const wasNew = ledger.done[id] === undefined;
     toast("+" + (wasNew ? 30 + rankIdx * 5 : 10) + " chips \u00b7 " + (wasNew ? "page inked" : "reviewed"));
     if (wasNew && Object.keys(ledger.done).length === 0) pinHonor("first", "Honors board: First Page", 20);
