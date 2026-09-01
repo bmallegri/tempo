@@ -80,8 +80,6 @@ const T = {
   hintDark:   "#90a9c6",
   markLight:  "#dcc79a",
   markDark:   "#a89268",
-  fileLight:  "#8a8372",
-  fileDark:   "#dbe6f2",
   pieceShade: "#0b0e14",
   pieceEdge:  "#2b3340",
 
@@ -1393,12 +1391,6 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
           animation: isWrong ? "tp-shake .3s" : "none",
           opacity: dim ? 0.85 : 1
         }}>
-        {col === 0 && (
-          <span style={{ position: "absolute", top: 1, left: 3, fontSize: c * 0.22, color: light ? T.fileLight : T.fileDark, fontFamily: T.mono }}>{8 - r}</span>
-        )}
-        {r === 7 && (
-          <span style={{ position: "absolute", bottom: 0, right: 3, fontSize: c * 0.22, color: light ? T.fileLight : T.fileDark, fontFamily: T.mono }}>{FILES[col]}</span>
-        )}
         {checkSq === i && (
           <span style={{ position: "absolute", inset: 2, borderRadius: 8, pointerEvents: "none",
             border: "2.5px solid " + T.roseBoard }} />
@@ -1436,22 +1428,39 @@ function Board({ board, cell, onSquare, marks, glow, wrong, selected, dots, last
       </div>
     );
   }
+  /* the coordinates live in a gutter outside the grid. On the squares they sat on
+     eight different colours, none of which cleared the 3:1 floor, and on rank 1 the
+     file letters ran under the pieces. On the frame they have one background and
+     one ink, and the board is the lesson in chapter 1, so it has to be readable. */
+  const gut = Math.round(c * 0.42);
+  const coord = { fontFamily: T.mono, fontSize: Math.max(9, c * 0.26), color: T.beigeDeep,
+    display: "flex", alignItems: "center", justifyContent: "center" };
   return (
     <div style={{
-      /* the grid renders c*8 plus its own 2px border each side, so the frame
-         has to be exactly that wide for the padding to sit even */
-      position: "relative", width: c * 8 + 4, margin: "0 auto", padding: 8,
+      /* the grid renders c*8 plus its own 2px border each side, and the gutter
+         adds its width on the left, so the frame has to carry both */
+      position: "relative", width: gut + c * 8 + 4, margin: "0 auto", padding: 8,
       background: T.duskUp,
       borderRadius: 12, border: "1px solid " + T.beigeLine,
       boxShadow: "inset 0 0 0 1px " + T.beigeEdge + ", inset 0 0 24px " + T.wellDeep
     }}>
-      <div style={{
-        display: "grid", gridTemplateColumns: "repeat(8, " + c + "px)",
-        border: "2px solid " + T.beigeDeep, borderRadius: 8, overflow: "hidden",
-        boxShadow: "0 0 0 1px " + T.beigeEdge,
-        width: c * 8
-      }}>
-        {squares}
+      <div style={{ display: "flex" }}>
+        <div style={{ width: gut, display: "grid", gridTemplateRows: "repeat(8, " + c + "px)", paddingTop: 2 }}>
+          {[8, 7, 6, 5, 4, 3, 2, 1].map((n) => <span key={n} style={coord}>{n}</span>)}
+        </div>
+        <div>
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(8, " + c + "px)",
+            border: "2px solid " + T.beigeDeep, borderRadius: 8, overflow: "hidden",
+            boxShadow: "0 0 0 1px " + T.beigeEdge,
+            width: c * 8
+          }}>
+            {squares}
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(8, " + c + "px)", height: gut, margin: "0 2px" }}>
+            {FILES.split("").map((f) => <span key={f} style={coord}>{f}</span>)}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -2857,7 +2866,7 @@ export default function App() {
     return { card };
   };
   useEffect(() => {
-    const fit = () => setCell(Math.max(34, Math.min(46, Math.floor((window.innerWidth - 36) / 8))));
+    const fit = () => setCell(Math.max(34, Math.min(46, Math.floor((window.innerWidth - 56) / 8.42))));
     fit(); window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
   }, []);
