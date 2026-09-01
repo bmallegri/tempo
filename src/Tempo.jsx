@@ -94,6 +94,10 @@ const T = {
 };
 /* per-chapter accent colors, drawn from the families above */
 const ACC = { 1: T.blue, 2: T.beige, 3: T.clay, 4: T.beigeLight };
+/* the same four accents at an edge weight and a ground weight, so a chapter can
+   tint its own cards without becoming a fifth and sixth colour */
+const ACC_EDGE = {}, ACC_WASH = {};
+for (const n of [1, 2, 3, 4]) { ACC_EDGE[n] = ACC[n] + "55"; ACC_WASH[n] = ACC[n] + "14"; }
 
 /* ---------------- chess engine ---------------- */
 const FILES = "abcdefgh";
@@ -1208,6 +1212,8 @@ const KEYFRAMES = `
 * { -webkit-font-smoothing: antialiased; }
 button:active { transform: scale(0.96); }
 .tp-press:active { transform: translateY(1px); filter: brightness(0.96); }
+.tp-card, .tp-press { transition: transform .16s ease, filter .16s ease; }
+.tp-card:hover, .tp-press:hover { transform: translateY(-2px); filter: brightness(1.08); }
 .paper:nth-child(odd) { transform: rotate(-0.3deg); }
 .paper:nth-child(even) { transform: rotate(0.25deg); }
 @keyframes tp-drop { 0% { transform: scale(1.4) translateY(-7px); } 100% { transform: scale(1) translateY(0); } }
@@ -2612,7 +2618,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
       </div>
 
       {tab === "notebook" && Object.keys(ledger.done).length >= 4 && (
-        <div onClick={onDrill}
+        <div className="tp-press" onClick={onDrill}
           style={{ cursor: "pointer", borderRadius: 16, padding: "12px 16px", marginBottom: 20,
             border: "1px solid " + T.beigeLine, background: T.well,
             display: "flex", alignItems: "center" }}>
@@ -2637,7 +2643,13 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
         const list = CONCEPTS.map((c, i) => ({ c, i })).filter((x) => x.c.ch === chp.n);
         return (
           <div key={chp.n} style={{ marginBottom: 22 }}>
-            <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 18, letterSpacing: 0.5 }}>Chapter {chp.n}: {chp.title}</div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+              <div style={{ fontFamily: T.mono, color: ACC[chp.n], fontSize: 18, letterSpacing: 0.5 }}>Chapter {chp.n}: {chp.title}</div>
+              <div style={{ flex: 1, height: 1, background: ACC_EDGE[chp.n] }} />
+              <div style={{ fontFamily: T.mono, color: T.onSoft, fontSize: 12.5, letterSpacing: 0.5 }}>
+                {list.filter((x) => ledger.done[x.c.id] !== undefined).length}/{list.length} inked
+              </div>
+            </div>
             <div style={{ fontFamily: T.serif, color: T.onMute, fontSize: 14, marginBottom: 10, fontStyle: "italic" }}>{chp.sub}</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {list.map(({ c, i }) => {
@@ -2645,7 +2657,7 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
                 const unlocked = conceptUnlocked(i, ledger);
                 if (doneRank !== undefined) {
                   return (
-                    <div key={c.id} onClick={() => setCodex(c)} style={{
+                    <div key={c.id} className="tp-card" onClick={() => setCodex(c)} style={{
                       boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.paperWarm, borderRadius: 12,
                       border: "1.5px solid " + T.blueDeep, padding: "12px 10px", cursor: "pointer",
                       textAlign: "center"
@@ -2658,10 +2670,11 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
                 }
                 if (unlocked) {
                   return (
-                    <div key={c.id} onClick={() => onLesson(c)} style={{
+                    <div key={c.id} className="tp-card" onClick={() => onLesson(c)} style={{
                       boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.onGhost, borderRadius: 12,
                       border: "1.5px solid " + ACC[c.ch], padding: "12px 10px", cursor: "pointer",
-                      textAlign: "center"
+                      textAlign: "center",
+                      boxShadow: "0 0 0 4px " + ACC_WASH[c.ch] + ", inset 0 1px 0 " + T.sheenSoft
                     }}>
                       <div style={{ fontFamily: T.serif, fontSize: 15.5, color: T.paper, fontWeight: 600, margin: "4px 0 3px" }}>{c.name}</div>
                       <div style={{ fontFamily: T.serif, fontSize: 14, color: ACC[c.ch] }}>Open this page</div>
@@ -2670,8 +2683,9 @@ function Hub({ ledger, onLesson, onBoss, onTrial, onDrill, onSandbox, onPull, on
                 }
                 return (
                   <div key={c.id} style={{
-                    boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: T.well, borderRadius: 12,
-                    border: "1px solid " + T.onGhost, padding: "12px 10px", textAlign: "center", opacity: 0.85
+                    boxSizing: "border-box", width: 198, maxWidth: "calc(50% - 6px)", background: ACC_WASH[c.ch], borderRadius: 12,
+                    border: "1px solid " + ACC_EDGE[c.ch], padding: "12px 10px", textAlign: "center", opacity: 0.85,
+                    boxShadow: "inset 0 1px 0 " + T.sheenFaint
                   }}>
                     <Lock size={22} color={T.onSoft} />
                     <div style={{ fontFamily: T.mono, fontSize: 15.5, color: T.onSoft, margin: "4px 0 3px", letterSpacing: 0.5 }}>? ? ?</div>
