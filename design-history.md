@@ -8,7 +8,7 @@ An interactive chess course in one React file, built for a complete beginner who
 
 One file. No dependencies beyond React. Engine, content and interface all live together, and the constraint did most of the work: when there is nowhere to hide a flourish, you stop writing flourishes.
 
-Two non-text marks in the whole interface: the pieces and a lock. No gradients. The white pieces carry a thin outline, because cream on cream is not a contrast. Everything else is type, rule and color.
+Two non-text marks in the whole interface: the pieces and a lock. No gradients. The white pieces carry a thin outline, because cream on cream is not a contrast. The coordinates sit in a gutter outside the grid, because on the squares they had eight different backgrounds to survive and cleared none of them, and on rank 1 they ran under the pieces. Chapter 1 is the lesson about reading coordinates, so that was the worst place in the game to have them. Everything else is type, rule and color.
 
 ## What it is made of
 
